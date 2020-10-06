@@ -4,19 +4,19 @@
     <form action class="form" @submit.prevent="login">
       <label class="form-label" for="#email">Usuario:</label>
       <input
-        v-model="email"
+        v-model="user_email"
         class="form-input"
         type="email"
-        id="email"
+        id="user_email"
         required
         placeholder="Correo"
       />
       <label class="form-label" for="#password">Contraseña:</label>
       <input
-        v-model="password"
+        v-model="user_password"
         class="form-input"
         type="password"
-        id="password"
+        id="user_password"
         required
         placeholder="Contraseña"
       />
@@ -29,23 +29,23 @@
 </template>
 
 <script>
+import auth from "@/logic/auth";
 export default {
   data: () => ({
-    email: "",
-    password: "",
-    error: false
+    user_email: "",
+    user_password: "",
+    error: false,
   }),
   methods: {
     login() {
-      
-        console.log(this.email);
-        console.log(this.password);
-      
+      console.log(this.user_email);
+      console.log(this.user_password);
 
-
-      
-    }
-  }
+      auth.login(this.user_email, this.user_password).then((response) => {
+        console.log(response);
+      });
+    },
+  },
 };
 </script>
 
@@ -82,7 +82,7 @@ export default {
   padding: 10px 15px;
   background: none;
   background-image: none;
-  background-color:#fafafa;
+  background-color: #fafafa;
   border: 1px solid rgb(83, 121, 192);
   color: rgb(43, 43, 49);
   &:focus {
@@ -101,11 +101,7 @@ export default {
   &:hover {
     background: #052f5f;
   }
-
-  
 }
-
-
 </style>
 
 <style scoped>
