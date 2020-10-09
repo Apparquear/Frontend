@@ -1,53 +1,52 @@
 <template>
   
   <div class="register">
-    <h1 class="title">WELCOME TO APPARQUEAR</h1>
-    <h1 class="title">Register</h1>
+    <h1 class="title">Registro</h1>
     <form action class="form" @submit.prevent="register">
-      <label class="form-label" for="#name">Name:</label>
+      <label class="form-label" for="#name">Nombre:</label>
       <input
         v-model="user_name"
         class="form-input"
         type="user_name"
         id="user_name"
         required
-        placeholder="Your Name"
+        placeholder="Nombre Completo"
       >
-      <label class="form-label" for="#age">Age:</label>
+      <label class="form-label" for="#age">Edad:</label>
       <input
         v-model="user_age"
         class="form-input"
         type="user_age"
         id="user_age"
         required
-        placeholder="Age"
+        placeholder="Edad"
       >
-      <label class="form-label" for="#email">Email:</label>
+      <label class="form-label" for="#email">Correo:</label>
       <input
         v-model="user_email"
         class="form-input"
-        type="user_email"
+        type="email"
         id="user_email"
         required
         placeholder="Email"
       >
-      <label class="form-label" for="#password">Password:</label>
+      <label class="form-label" for="#password">Contraseña:</label>
       <input
         v-model="user_password"
         class="form-input"
         type="password"
         id="user_password"
-        placeholder="Password"
+        placeholder="Contraseña"
       >
-      <label class="form-label" for="#password-repeat">Repeat Password:</label>
+      <label class="form-label" for="#password-repeat">Repite la contraseña:</label>
       <input
         v-model="passwordRepeat"
         class="form-input"
         type="password"
         id="password-repeat"
-        placeholder="Password"
+        placeholder="Contraseña"
       >
-      <input class="form-submit" type="submit" value="Sign Up">
+      <input class="form-submit" type="submit" value="Registrarse">
     </form>
   </div>
 </template>
@@ -55,6 +54,7 @@
 <script>
 import auth from "@/logic/auth";
 export default {
+  name: 'Register',
   data: () => ({
     user_name: "",
     user_email: "",
@@ -78,6 +78,7 @@ export default {
 }
 .title {
   text-align: center;
+  color: #4a051c;
 }
 .form {
   margin: 3rem auto;
@@ -87,14 +88,14 @@ export default {
   width: 20%;
   min-width: 350px;
   max-width: 100%;
-  background: rgba(19, 35, 47, 0.9);
+  background: #004e64;
   border-radius: 5px;
   padding: 40px;
   box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
 }
 .form-label {
   margin-top: 2rem;
-  color: white;
+  color: #dce1de;
   margin-bottom: 0.5rem;
   &:first-of-type {
     margin-top: 0rem;
@@ -105,22 +106,22 @@ export default {
   background: none;
   background-image: none;
   border: 1px solid white;
-  color: white;
+  color: #dce1de;
   &:focus {
     outline: 0;
     border-color: #1ab188;
   }
 }
 .form-submit {
-  background: #1ab188;
+  background: #dce1de;
   border: none;
-  color: white;
+  color: #4a051c;
   margin-top: 3rem;
   padding: 1rem 0;
   cursor: pointer;
   transition: background 0.2s;
   &:hover {
-    background: #0b9185;
+    background: #1a936f;
   }
 }
 .error {
