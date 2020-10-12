@@ -1,32 +1,39 @@
 <template>
   <div class="contact">
     <h1 class="title">Contacto</h1>
-    
+
     <form form action class="form">
       <div class="form-group">
         <label for="exampleFormControlInput1">Correo</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        <input
+          type="email"
+          class="form-control"
+          id="exampleFormControlInput1"
+          placeholder="name@example.com"
+        />
       </div>
       <div class="form-group">
         <label for="exampleFormControlTextarea1">¿Qué problema tienes?</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <textarea
+          class="form-control"
+          id="exampleFormControlTextarea1"
+          rows="3"
+        ></textarea>
       </div>
       <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
-
   </div>
 </template>
 
 <script>
-  export default {
-    name:'Contact',
-  }
+export default {
+  name: "Contact",
+};
 </script>
 
 <style lang="scss" scoped>
 .contact {
   padding: 4rem;
-
 }
 .title {
   text-align: center;
@@ -64,7 +71,7 @@
 .btn-primary {
   background: #dce1de;
   border: none;
-  color:  #4a051c;
+  color: #4a051c;
   margin-top: 3rem;
   padding: 1rem 0;
   cursor: pointer;

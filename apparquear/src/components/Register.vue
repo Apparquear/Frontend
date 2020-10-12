@@ -1,5 +1,4 @@
 <template>
-  
   <div class="register">
     <h1 class="title">Registro</h1>
     <form action class="form" @submit.prevent="register" id="form">
@@ -11,7 +10,7 @@
         id="user_name"
         required
         placeholder="Nombre Completo"
-      >
+      />
       <label class="form-label" for="#age">Edad:</label>
       <input
         v-model="user_age"
@@ -20,7 +19,7 @@
         id="user_age"
         required
         placeholder="Edad"
-      >
+      />
       <label class="form-label" for="#email">Correo:</label>
       <input
         v-model="user_email"
@@ -29,7 +28,7 @@
         id="user_email"
         required
         placeholder="Email"
-      >
+      />
       <label class="form-label" for="#password">Contraseña:</label>
       <input
         v-model="user_password"
@@ -37,16 +36,18 @@
         type="password"
         id="user_password"
         placeholder="Contraseña"
+      />
+      <label class="form-label" for="#password-repeat"
+        >Repite la contraseña:</label
       >
-      <label class="form-label" for="#password-repeat">Repite la contraseña:</label>
       <input
         v-model="passwordRepeat"
         class="form-input"
         type="password"
         id="password-repeat"
         placeholder="Contraseña"
-      >
-      <input class="form-submit" type="submit" value="Registrarse">
+      />
+      <input class="form-submit" type="submit" value="Registrarse" />
       <p class="warnings" id="warnings"></p>
     </form>
   </div>
@@ -55,64 +56,69 @@
 <script>
 import auth from "@/logic/auth";
 export default {
-  name: 'Register',
+  name: "Register",
   data: () => ({
     user_name: "",
     user_email: "",
     user_age: "",
     user_password: "",
-    passwordRepeat: ""
+    passwordRepeat: "",
   }),
   methods: {
-  register() { 
-    const nombre =document.getElementById("user_name");
-    const contra =document.getElementById("user_password");
-    const contra2 =document.getElementById("password-repeat");
-    const correo =document.getElementById("user_email");
-    const edad =document.getElementById("user_age");
-    const form =document.getElementById("form");
-    const aviso =document.getElementById("warnings");
+    register() {
+      const nombre = document.getElementById("user_name");
+      const contra = document.getElementById("user_password");
+      const contra2 = document.getElementById("password-repeat");
+      const correo = document.getElementById("user_email");
+      const edad = document.getElementById("user_age");
+      const form = document.getElementById("form");
+      const aviso = document.getElementById("warnings");
 
-    form.addEventListener("submit", e=>{
-      e.preventDefault()
-      let warnings= ""
-      let entrar = false
-      let regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-      aviso.innerHTML = ""
-      if(nombre.value.length <10){
-        warnings += 'El nombre es muy corto <br>'
-        entrar = true
-      }
-      if(contra.value.length <8){
-        warnings += 'La contraseña no es válida <br>'
-        entrar = true
-      }
-      if(contra2.value != contra.value){
-        warnings += 'Las contraseñas no coinciden <br>'
-        entrar = true
-      }
-      if(!regexEmail.test(correo.value)){
-        warnings += 'El correo no es válido <br>'
-        entrar = true
-      }
-      if(isNaN(edad.value)){
-        warnings += 'La edad debe ser un número <br>'
-        entrar = true
-      }
-      if(entrar){
-        aviso.innerHTML = warnings
-      }else{
-        aviso.innerHTML = "Registro Exitoso"
-        auth.register(this.user_name,this.user_password,this.user_email,this.user_age).then(response => {
-        console.log(response)
-        });
-        document.getElementById("form").reset();
-      }
-
-    })
-  
-  }
-}
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        let warnings = "";
+        let entrar = false;
+        let regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        aviso.innerHTML = "";
+        if (nombre.value.length < 10) {
+          warnings += "El nombre es muy corto <br>";
+          entrar = true;
+        }
+        if (contra.value.length < 8) {
+          warnings += "La contraseña no es válida <br>";
+          entrar = true;
+        }
+        if (contra2.value != contra.value) {
+          warnings += "Las contraseñas no coinciden <br>";
+          entrar = true;
+        }
+        if (!regexEmail.test(correo.value)) {
+          warnings += "El correo no es válido <br>";
+          entrar = true;
+        }
+        if (isNaN(edad.value)) {
+          warnings += "La edad debe ser un número <br>";
+          entrar = true;
+        }
+        if (entrar) {
+          aviso.innerHTML = warnings;
+        } else {
+          aviso.innerHTML = "Registro Exitoso";
+          auth
+            .register(
+              this.user_name,
+              this.user_password,
+              this.user_email,
+              this.user_age
+            )
+            .then((response) => {
+              console.log(response);
+            });
+          document.getElementById("form").reset();
+        }
+      });
+    },
+  },
 };
 </script>
 
@@ -168,13 +174,12 @@ export default {
     background: #1a936f;
   }
 }
-.warnings{
+.warnings {
   width: 200px;
   text-align: center;
   margin: auto;
   color: #dce1de;
   padding-top: 20px;
-
 }
 .error {
   margin: 1rem 0 0;
