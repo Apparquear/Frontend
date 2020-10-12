@@ -6,16 +6,16 @@
       <input
         v-model="user_name"
         class="form-input"
-        type="user_name"
+        type="text"
         id="user_name"
         required
         placeholder="Nombre Completo"
       />
       <label class="form-label" for="#age">Edad:</label>
       <input
-        v-model="user_age"
+        v-model.number="user_age"
         class="form-input"
-        type="user_age"
+        type="number"
         id="user_age"
         required
         placeholder="Edad"
@@ -36,6 +36,7 @@
         type="password"
         id="user_password"
         placeholder="Contraseña"
+        required
       />
       <label class="form-label" for="#password-repeat"
         >Repite la contraseña:</label
@@ -46,6 +47,7 @@
         type="password"
         id="password-repeat"
         placeholder="Contraseña"
+        required
       />
       <input class="form-submit" type="submit" value="Registrarse" />
       <p class="warnings" id="warnings"></p>
