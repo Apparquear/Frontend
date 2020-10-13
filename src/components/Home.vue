@@ -17,18 +17,18 @@
       <b-button href="#" class="button-primary">Botón primario</b-button>
       <b-button href="#" class="button-secondary">Botón secundario</b-button>
     </b-jumbotron>
-    <footer class="footer">
-      <p>&copy; Desarrollado por ApparquearTeam.</p>
-    </footer>
+    <Footer> </Footer>
   </div>
 </template>
 
 <script>
 import NavBar from "./NavBar.vue";
+import Footer from "./Footer.vue";
 export default {
   name: "Home",
   components: {
-    NavBar
+    NavBar,
+    Footer
   }
 };
 </script>
