@@ -177,7 +177,7 @@ export default {
         )
         .then(response => {
           if(response && response.status == 200){
-            this.makeToast("sucess", "Registro completado", "Has completado tu registro exitosamente");
+            this.makeToast("success", "Registro completado", "Has completado tu registro exitosamente");
             setTimeout(function(){
               this.toLogin()
             }.bind(this),1000);
