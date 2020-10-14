@@ -184,7 +184,6 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error.response);
           this.makeToast("danger", "Registro fallido", error.response.data.message);
         });
     },
