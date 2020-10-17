@@ -12,6 +12,14 @@
             size="md"
             class="my-2 my-sm-0"
             type="button"
+            :to="'map'"
+            >Encuentra parqueadero</b-button
+          >
+          
+          <b-button
+            size="md"
+            class="my-2 my-sm-0"
+            type="button"
             :to="'parking_register'"
             >Registrar parqueadero</b-button
           >
