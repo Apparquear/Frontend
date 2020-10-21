@@ -85,7 +85,7 @@ export default {
   }),
   methods: {
     checkForm: function() {
-      let regexName = /^[A-Za-z\s]+$/g;
+      let regexName = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
       let regexEmail = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
       // Validaciones
       if (!this.name) {
@@ -226,6 +226,7 @@ export default {
   background: #004e64;
   border-radius: 10px;
   padding: 40px;
+  max-width: 540px;
   box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
 }
 </style>

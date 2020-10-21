@@ -146,6 +146,7 @@ export default {
   flex-direction: column;
   background: #004e64;
   border-radius: 10px;
+  max-width: 540px;
   padding: 40px;
   box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
 }
