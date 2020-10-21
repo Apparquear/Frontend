@@ -12,7 +12,7 @@
             size="md"
             class="my-2 my-sm-0"
             type="button"
-            :to="'map'"
+            :to="'mapgoogle'"
             >Encuentra parqueadero</b-button
           >
           
