@@ -6,6 +6,13 @@ import router from './router'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import * as VueGoogleMaps from "vue2-google-maps";
+
+Vue.use(VueGoogleMaps,{
+  load: {
+    key:"AIzaSyDOmchxjoftzUXnGjF9QdJpRb7L-dPDasU",
+  },
+});
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
