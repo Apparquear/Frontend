@@ -20,7 +20,7 @@ Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyD3zua9NYYHluLw7PKlx6DhHq7Ycv89cGE',
     region: 'CO',
-    language: 'co',
+    language: 'es',
   }, 
 })
 /* eslint-disable no-new */
