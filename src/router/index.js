@@ -15,11 +15,8 @@ export default new Router({
     { path: "/login", name: "login", component: Login },
     { path: "/register", name: "register", component: Register },
     { path: "/contact", name: "contact", component: Contact },
-    {
-      path: "/parking_register",
-      name: "parking_register",
-      component: ParkingRegister
-    },
+    { path: "/parking_register", name: "parking_register", component: ParkingRegister},
+    { path: "/disponibles", name: "disponibles",component: Disponibles},
     { path: "/:catchAll(.*)", redirect: "home" }
   ]
 });
