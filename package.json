@@ -13,8 +13,11 @@
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
     "bootstrap-vue": "^2.17.3",
+    "google-maps-api-loader": "^1.1.1",
+    "leaflet": "^1.7.1",
     "vue": "^2.6.12",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue2-leaflet": "^2.6.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -48,6 +51,7 @@
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
+    "vue2-google-maps": "^0.10.7",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^4.0.0",
