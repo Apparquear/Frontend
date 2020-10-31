@@ -21,7 +21,11 @@
         ></b-form-group>
 
         <!-- Ubicacion -->
-        <b-form-group class="light-text" label="Ubicacion" label-for="location">
+        <b-form-group
+          class="light-text"
+          label="Ubicacion"
+          label-for="markerLocation"
+        >
           <div style="height: 400px; width: 100%">
             <div style="height: 100px overflow: auto;">
               <p>
@@ -31,13 +35,13 @@
             </div>
             <l-map
               :zoom="zoom"
-              :center="location"
+              :center="markerLocation"
               style="height: 80%"
               @update:center="centerUpdate"
               @update:zoom="zoomUpdate"
             >
               <l-tile-layer :url="url" :attribution="attribution" />
-              <l-marker :latLng="location">
+              <l-marker :latLng="markerLocation">
                 <l-popup>
                   Ubicación de tu parqueadero
                 </l-popup>
@@ -47,7 +51,7 @@
               </l-marker>
               <l-control position="bottomleft">
                 <b-alert show variant="dark"
-                  ><h4 class="alert-heading">{{ location }}</h4></b-alert
+                  ><h4 class="alert-heading">{{ markerLocation }}</h4></b-alert
                 >
               </l-control>
             </l-map>
@@ -63,23 +67,26 @@
           <b-input
             type="time"
             id="schedule_open"
-            step="2"
+            step="1"
             v-model="schedule_open"
-            width
           ></b-input
-        >{{schedule_open}}</b-form-group>
+        ></b-form-group>
 
         <b-form-group class="light-text" label-for="schedule_close">
           <b-input
             type="time"
             id="schedule_close"
-            step="2"
+            step="1"
             v-model="schedule_close"
           ></b-input
-        >{{schedule_close}}</b-form-group>
+        ></b-form-group>
 
         <!-- Número de bahías según tipo de vehiculo -->
-        <b-form-group class="light-text" label="Número de bahías según tipo de vehiculo" label-for="slot_v">
+        <b-form-group
+          class="light-text"
+          label="Número de bahías según tipo de vehiculo"
+          label-for="slot_v"
+        >
           <b-input
             type="number"
             id="slot_v"
@@ -107,7 +114,11 @@
         ></b-form-group>
 
         <!-- Costo por minuto según tipo de vehículo -->
-        <b-form-group class="light-text" label="Costo por minuto según tipo de vehículo" label-for="cost_v">
+        <b-form-group
+          class="light-text"
+          label="Costo por minuto según tipo de vehículo"
+          label-for="cost_v"
+        >
           <b-input
             type="number"
             id="cost_v"
@@ -188,9 +199,8 @@ export default {
       slot_m: "",
       slot_b: "",
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-      zoom: 9,
-      location: [47.41322, -1.219482],
-      bounds: null
+      zoom: 15,
+      markerLocation: [4.635062, -74.080676]
     };
   },
 
@@ -198,8 +208,8 @@ export default {
     zoomUpdate(zoom) {
       this.zoom = zoom;
     },
-    centerUpdate(location) {
-      this.location = location;
+    centerUpdate(markerLocation) {
+      this.markerLocation = markerLocation;
     },
     showLongText() {
       this.showParagraph = !this.showParagraph;
@@ -353,10 +363,12 @@ export default {
     },
 
     register: function() {
+      this.markerLocation = this.markerLocation.toString().replace("LatLng(","").replace(")","");
       auth
         .parking_register(
           this.parking_name,
-          this.location.toString,
+          this.markerLocation.toString().split(",")[0],
+          this.markerLocation.toString().split(",")[1],
           this.schedule_open,
           this.schedule_close,
           this.slot_v,
@@ -364,7 +376,7 @@ export default {
           this.slot_b,
           this.cost_v,
           this.cost_m,
-          this.cost_b,
+          this.cost_b
         )
         .then(response => {
           if (response && response.status == 200) {
@@ -374,7 +386,7 @@ export default {
               "Has completado el registro de tu parqueadero exitosamente"
             );
             setTimeout(function() {
-              this.toHome();
+              this.$router.push({ path: "/home" });
             }, 1000);
           }
         })
@@ -394,9 +406,6 @@ export default {
         solid: true,
         appendToast: true
       });
-    },
-    toLogin() {
-      this.$router.push({ path: "/login" });
     }
   }
 };

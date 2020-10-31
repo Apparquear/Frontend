@@ -96,7 +96,7 @@ export default {
               "Inicio de sesión exitoso"
             );
             setTimeout(function(){
-                this.toHome();
+                this.$router.push({path: "/home"});
             },1000);
           }
         })
@@ -116,9 +116,6 @@ export default {
         solid: true,
         appendToast: true
       });
-    },
-    toHome(){
-        this.$router.push({path: "/home"})
     }
   }
 };

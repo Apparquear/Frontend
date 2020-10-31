@@ -14,7 +14,8 @@ export default {
   },
   parking_register(
     parking_name,
-    location,
+    latitude,
+    longitude,
     opening_time,
     closing_time,
     car_spaces,
@@ -26,7 +27,8 @@ export default {
   ) {
     const parking = {
       parking_name,
-      location,
+      latitude,
+      longitude,
       opening_time,
       closing_time,
       car_spaces,
