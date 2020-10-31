@@ -1,7 +1,7 @@
 <template>
-  <div class="parkingregister">
+  <div>
     <NavBar> </NavBar>
-    <b-container>
+    <b-container class="parkingRegister">
       <h1 class="title"><b>Registrar Parqueadero</b></h1>
 
       <b-form class="form" @submit="checkForm" id="form">
@@ -363,12 +363,12 @@ export default {
     },
 
     register: function() {
-      this.markerLocation = this.markerLocation.toString().replace("LatLng(","").replace(")","");
+      this.markerLocation = this.markerLocation.toString().replace("LatLng(","").replace(")","").split(",");
       auth
         .parking_register(
           this.parking_name,
-          this.markerLocation.toString().split(",")[0],
-          this.markerLocation.toString().split(",")[1],
+          this.markerLocation[0],
+          this.markerLocation[1],
           this.schedule_open,
           this.schedule_close,
           this.slot_v,
@@ -376,7 +376,9 @@ export default {
           this.slot_b,
           this.cost_v,
           this.cost_m,
-          this.cost_b
+          this.cost_b,
+          2,
+          "soyuntoken"
         )
         .then(response => {
           if (response && response.status == 200) {
@@ -387,7 +389,7 @@ export default {
             );
             setTimeout(function() {
               this.$router.push({ path: "/home" });
-            }, 1000);
+            }.bind(this), 1000);
           }
         })
         .catch(error => {
@@ -412,6 +414,11 @@ export default {
 </script>
 
 <style scoped>
+
+.parkingRegister {
+  padding: 2rem;
+}
+
 .button-primary {
   background-color: #4a051c;
   color: #f6f7eb;

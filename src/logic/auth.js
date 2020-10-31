@@ -23,7 +23,9 @@ export default {
     bike_spaces,
     car_cost_minute,
     motorcycle_cost_minute,
-    bike_cost_minute
+    bike_cost_minute,
+    user_id,
+    token
   ) {
     const parking = {
       parking_name,
@@ -38,6 +40,12 @@ export default {
       motorcycle_cost_minute,
       bike_cost_minute
     };
-    return axios.post(ENDPOINT_PATH + "parking/save", parking);
+    return axios.post(ENDPOINT_PATH + "parking/save/" + user_id + "/" + token , parking);
+  },
+  invalidate_token(token){
+    const body = {
+      token
+    }
+    return axios.post(ENDPOINT_PATH + "token/invalidate", body);
   }
 };
