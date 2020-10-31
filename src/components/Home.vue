@@ -90,7 +90,6 @@ export default {
         toLogin();
       }
     }
-    function validateToken() {}
     function authenticate() {
       getToken();
     }

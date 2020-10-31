@@ -1,163 +1,171 @@
 <template>
   <div>
-    <NavBar> </NavBar>
-    <b-container class="parkingRegister">
-      <h1 class="title"><b>Registrar Parqueadero</b></h1>
+    <div v-if="!authenticated">
+      <Loading> </Loading>
+    </div>
+    <div v-if="authenticated">
+      <NavBar> </NavBar>
+      <b-container class="parkingRegister">
+        <h1 class="title"><b>Registrar Parqueadero</b></h1>
 
-      <b-form class="form" @submit="checkForm" id="form">
-        <!-- Nombre -->
-        <b-form-group
-          class="light-text"
-          label="Nombre"
-          label-for="parking_name"
-        >
-          <b-input
-            type="text"
-            maxlength="100"
-            id="parking_name"
-            placeholder="Ingresa el nombre del parqueadero"
-            v-model="parking_name"
-          ></b-input
-        ></b-form-group>
+        <b-form class="form" @submit="checkForm" id="form">
+          <!-- Nombre -->
+          <b-form-group
+            class="light-text"
+            label="Nombre"
+            label-for="parking_name"
+          >
+            <b-input
+              type="text"
+              maxlength="100"
+              id="parking_name"
+              placeholder="Ingresa el nombre del parqueadero"
+              v-model="parking_name"
+            ></b-input
+          ></b-form-group>
 
-        <!-- Ubicacion -->
-        <b-form-group
-          class="light-text"
-          label="Ubicacion"
-          label-for="markerLocation"
-        >
-          <div style="height: 400px; width: 100%">
-            <div style="height: 100px overflow: auto;">
-              <p>
-                Arrastra el mapa hasta que tu parqueadero sea visible y coincida
-                con el marcador azul ubicado en el centro
-              </p>
+          <!-- Ubicacion -->
+          <b-form-group
+            class="light-text"
+            label="Ubicacion"
+            label-for="markerLocation"
+          >
+            <div style="height: 400px; width: 100%">
+              <div style="height: 100px overflow: auto;">
+                <p>
+                  Arrastra el mapa hasta que tu parqueadero sea visible y
+                  coincida con el marcador azul ubicado en el centro
+                </p>
+              </div>
+              <l-map
+                :zoom="zoom"
+                :center="markerLocation"
+                style="height: 80%"
+                @update:center="centerUpdate"
+                @update:zoom="zoomUpdate"
+              >
+                <l-tile-layer :url="url" :attribution="attribution" />
+                <l-marker :latLng="markerLocation">
+                  <l-popup>
+                    Ubicación de tu parqueadero
+                  </l-popup>
+                  <l-icon>
+                    <img src="../assets/marker.png" />
+                  </l-icon>
+                </l-marker>
+                <l-control position="bottomleft">
+                  <b-alert show variant="dark"
+                    ><h4 class="alert-heading">
+                      {{ markerLocation }}
+                    </h4></b-alert
+                  >
+                </l-control>
+              </l-map>
             </div>
-            <l-map
-              :zoom="zoom"
-              :center="markerLocation"
-              style="height: 80%"
-              @update:center="centerUpdate"
-              @update:zoom="zoomUpdate"
-            >
-              <l-tile-layer :url="url" :attribution="attribution" />
-              <l-marker :latLng="markerLocation">
-                <l-popup>
-                  Ubicación de tu parqueadero
-                </l-popup>
-                <l-icon>
-                  <img src="../assets/marker.png" />
-                </l-icon>
-              </l-marker>
-              <l-control position="bottomleft">
-                <b-alert show variant="dark"
-                  ><h4 class="alert-heading">{{ markerLocation }}</h4></b-alert
-                >
-              </l-control>
-            </l-map>
-          </div>
-        </b-form-group>
+          </b-form-group>
 
-        <!-- Horario -->
-        <b-form-group
-          class="light-text"
-          label="Horario"
-          label-for="schedule_open"
-        >
-          <b-input
-            type="time"
-            id="schedule_open"
-            step="1"
-            v-model="schedule_open"
-          ></b-input
-        ></b-form-group>
+          <!-- Horario -->
+          <b-form-group
+            class="light-text"
+            label="Horario"
+            label-for="schedule_open"
+          >
+            <b-input
+              type="time"
+              id="schedule_open"
+              step="1"
+              v-model="schedule_open"
+            ></b-input
+          ></b-form-group>
 
-        <b-form-group class="light-text" label-for="schedule_close">
-          <b-input
-            type="time"
-            id="schedule_close"
-            step="1"
-            v-model="schedule_close"
-          ></b-input
-        ></b-form-group>
+          <b-form-group class="light-text" label-for="schedule_close">
+            <b-input
+              type="time"
+              id="schedule_close"
+              step="1"
+              v-model="schedule_close"
+            ></b-input
+          ></b-form-group>
 
-        <!-- Número de bahías según tipo de vehiculo -->
-        <b-form-group
-          class="light-text"
-          label="Número de bahías según tipo de vehiculo"
-          label-for="slot_v"
-        >
-          <b-input
-            type="number"
-            id="slot_v"
-            placeholder="Automóvil"
-            v-model="slot_v"
-          ></b-input
-        ></b-form-group>
+          <!-- Número de bahías según tipo de vehiculo -->
+          <b-form-group
+            class="light-text"
+            label="Número de bahías según tipo de vehiculo"
+            label-for="slot_v"
+          >
+            <b-input
+              type="number"
+              id="slot_v"
+              placeholder="Automóvil"
+              v-model="slot_v"
+            ></b-input
+          ></b-form-group>
 
-        <b-form-group class="light-text" label-for="slot_m">
-          <b-input
-            type="number"
-            id="slot_m"
-            placeholder="Motocicleta"
-            v-model="slot_m"
-          ></b-input
-        ></b-form-group>
+          <b-form-group class="light-text" label-for="slot_m">
+            <b-input
+              type="number"
+              id="slot_m"
+              placeholder="Motocicleta"
+              v-model="slot_m"
+            ></b-input
+          ></b-form-group>
 
-        <b-form-group class="light-text" label-for="slot_b">
-          <b-input
-            type="number"
-            id="slot_b"
-            placeholder="Bicicleta"
-            v-model="slot_b"
-          ></b-input
-        ></b-form-group>
+          <b-form-group class="light-text" label-for="slot_b">
+            <b-input
+              type="number"
+              id="slot_b"
+              placeholder="Bicicleta"
+              v-model="slot_b"
+            ></b-input
+          ></b-form-group>
 
-        <!-- Costo por minuto según tipo de vehículo -->
-        <b-form-group
-          class="light-text"
-          label="Costo por minuto según tipo de vehículo"
-          label-for="cost_v"
-        >
-          <b-input
-            type="number"
-            id="cost_v"
-            placeholder="Automóvil"
-            v-model="cost_v"
-          ></b-input
-        ></b-form-group>
+          <!-- Costo por minuto según tipo de vehículo -->
+          <b-form-group
+            class="light-text"
+            label="Costo por minuto según tipo de vehículo"
+            label-for="cost_v"
+          >
+            <b-input
+              type="number"
+              id="cost_v"
+              placeholder="Automóvil"
+              v-model="cost_v"
+            ></b-input
+          ></b-form-group>
 
-        <b-form-group class="light-text" label-for="cost_m">
-          <b-input
-            type="number"
-            id="cost_m"
-            placeholder="Motocicleta"
-            v-model="cost_m"
-          ></b-input
-        ></b-form-group>
+          <b-form-group class="light-text" label-for="cost_m">
+            <b-input
+              type="number"
+              id="cost_m"
+              placeholder="Motocicleta"
+              v-model="cost_m"
+            ></b-input
+          ></b-form-group>
 
-        <b-form-group class="light-text" label-for="cost_b">
-          <b-input
-            type="number"
-            id="cost_b"
-            placeholder="Bicicleta"
-            v-model="cost_b"
-          ></b-input
-        ></b-form-group>
+          <b-form-group class="light-text" label-for="cost_b">
+            <b-input
+              type="number"
+              id="cost_b"
+              placeholder="Bicicleta"
+              v-model="cost_b"
+            ></b-input
+          ></b-form-group>
 
-        <b-button block class="button-primary mt-4" syze="sm" type="submit"
-          >Registrar</b-button
-        >
-      </b-form>
+          <b-button block class="button-primary mt-4" syze="sm" type="submit"
+            >Registrar</b-button
+          >
+        </b-form>
 
-      <Footer> </Footer>
-    </b-container>
+        <Footer> </Footer>
+      </b-container>
+    </div>
   </div>
 </template>
 
 <script>
 import NavBar from "./NavBar.vue";
 import Footer from "./Footer.vue";
+import Loading from "./Loading.vue";
 import auth from "../logic/auth";
 import { latLng } from "leaflet";
 import {
@@ -181,7 +189,8 @@ export default {
     LPopup,
     LTooltip,
     LIcon,
-    LControl
+    LControl,
+    Loading
   },
   props: {
     msg: String
@@ -189,6 +198,7 @@ export default {
 
   data() {
     return {
+      authenticated: false,
       parking_name: "",
       schedule_open: "",
       schedule_close: "",
@@ -202,6 +212,49 @@ export default {
       zoom: 15,
       markerLocation: [4.635062, -74.080676]
     };
+  },
+
+  mounted: function() {
+    let $vm = this;
+
+    function invalidateToken() {
+      sessionStorage.removeItem("ap_user_id");
+      sessionStorage.removeItem("ap_token");
+      auth
+        .invalidate_token(token)
+        .then(response => {
+          if (response && response.status == 200) {
+            console.log("token invalidado");
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+    function toLogin() {
+      if (sessionStorage.getItem("ap_token")) {
+        invalidateToken();
+      }
+      $vm.$router.push("login");
+    }
+    function getToken() {
+      if (
+        sessionStorage.getItem("ap_token") &&
+        sessionStorage.getItem("ap_user_id")
+      ) {
+        $vm.user_id = sessionStorage.getItem("ap_user_id");
+        $vm.token = sessionStorage.getItem("ap_token");
+        $vm.authenticated = true;
+      } else {
+        toLogin();
+      }
+    }
+    function authenticate() {
+      getToken();
+    }
+    setTimeout(function() {
+      authenticate();
+    }, 1000);
   },
 
   methods: {
@@ -222,7 +275,7 @@ export default {
         return this.makeToast(
           "danger",
           "Nombre inválido",
-          "Por favor digita tu nombre"
+          "Por favor digita el nombre de tu parqueadero"
         );
       }
       if (this.zoom < 17) {
@@ -293,14 +346,14 @@ export default {
         return this.makeToast(
           "warning",
           "Nombre inválido",
-          "Tu nombre debe contener entre 8 y 100 caracteres"
+          "El nombre de tu parqueadero debe contener entre 8 y 100 caracteres"
         );
       }
       if (!regexName.test(this.parking_name)) {
         return this.makeToast(
           "warning",
           "Nombre inválido",
-          "Tu nombre solo puede contener letras y espacios"
+          "El nombre de tu parqueadero solo puede contener letras y espacios"
         );
       }
       if (this.schedule_open < 0 || this.schedule_open > 24) {
@@ -363,42 +416,80 @@ export default {
     },
 
     register: function() {
-      this.markerLocation = this.markerLocation.toString().replace("LatLng(","").replace(")","").split(",");
+      let ap_user_id, ap_token;
+      this.markerLocation = this.markerLocation
+        .toString()
+        .replace("LatLng(", "")
+        .replace(")", "")
+        .split(",");
+      if (
+        sessionStorage.getItem("ap_user_id") &&
+        sessionStorage.getItem("ap_token")
+      ) {
+        ap_user_id = sessionStorage.getItem("ap_user_id");
+        ap_token = sessionStorage.getItem("ap_token");
+
+        auth
+          .parking_register(
+            this.parking_name,
+            this.markerLocation[0],
+            this.markerLocation[1],
+            this.schedule_open,
+            this.schedule_close,
+            this.slot_v,
+            this.slot_m,
+            this.slot_b,
+            this.cost_v,
+            this.cost_m,
+            this.cost_b,
+            ap_user_id,
+            ap_token
+          )
+          .then(response => {
+            if (response && response.status == 200) {
+              this.makeToast(
+                "success",
+                "Registro completado",
+                "Has completado el registro de tu parqueadero exitosamente"
+              );
+              setTimeout(
+                function() {
+                  this.$router.push({ path: "/home" });
+                }.bind(this),
+                1000
+              );
+            }
+          })
+          .catch(error => {
+            this.makeToast(
+              "danger",
+              "Registro fallido",
+              error.response.data.message
+            );
+          });
+      } else {
+        this.toLogin();
+      }
+    },
+    invalidateToken() {
+      sessionStorage.removeItem("ap_user_id");
+      sessionStorage.removeItem("ap_token");
       auth
-        .parking_register(
-          this.parking_name,
-          this.markerLocation[0],
-          this.markerLocation[1],
-          this.schedule_open,
-          this.schedule_close,
-          this.slot_v,
-          this.slot_m,
-          this.slot_b,
-          this.cost_v,
-          this.cost_m,
-          this.cost_b,
-          2,
-          "soyuntoken"
-        )
+        .invalidate_token(this.token)
         .then(response => {
           if (response && response.status == 200) {
-            this.makeToast(
-              "success",
-              "Registro completado",
-              "Has completado el registro de tu parqueadero exitosamente"
-            );
-            setTimeout(function() {
-              this.$router.push({ path: "/home" });
-            }.bind(this), 1000);
+            console.log("token invalidado");
           }
         })
         .catch(error => {
-          this.makeToast(
-            "danger",
-            "Registro fallido",
-            error.response.data.message
-          );
+          console.log(error);
         });
+    },
+    toLogin() {
+      if (sessionStorage.getItem("ap_token")) {
+        this.invalidateToken();
+      }
+      this.$router.push("login");
     },
     makeToast(variant = null, tittle, text) {
       this.$bvToast.toast(text, {
@@ -414,7 +505,6 @@ export default {
 </script>
 
 <style scoped>
-
 .parkingRegister {
   padding: 2rem;
 }
