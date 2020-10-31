@@ -96,8 +96,8 @@ export default {
               "Inicio de sesión exitoso"
             );
             setTimeout(function(){
-                this.toHome()
-            }.bind(this),1000);
+                this.toHome();
+            },1000);
           }
         })
         .catch(error => {
