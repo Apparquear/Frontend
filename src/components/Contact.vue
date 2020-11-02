@@ -38,7 +38,7 @@ export default {
 .title {
   text-align: center;
 }
-//fondo formulario
+
 .form {
   margin: 3rem auto;
   display: flex;
@@ -52,11 +52,11 @@ export default {
   padding: 40px;
   box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
 }
-//Letra campos
+
 .form-group {
   color: #dce1de;
 }
-//cajitas texto
+
 .form-control {
   padding: 10px 15px;
   background: none;

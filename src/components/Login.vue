@@ -83,21 +83,27 @@ export default {
       auth
         .login(this.email, this.password)
         .then(response => {
-          if (response && !response.data) {
-            this.makeToast(
-              "warning",
-              "Ingreso fallido",
-              "Credenciales incorrectas"
-            );
-          } else {
-            this.makeToast(
-              "success",
-              "Ingreso correcto",
-              "Inicio de sesión exitoso"
-            );
-            setTimeout(function(){
-                this.toHome()
-            }.bind(this),1000);
+          if (response && response.data) {
+            if (!response.data.valid) {
+              this.makeToast(
+                "warning",
+                "Ingreso fallido",
+                "Credenciales incorrectas"
+              );
+            } else {
+              this.makeToast(
+                "success",
+                "Ingreso correcto",
+                "Inicio de sesión exitoso, redirigiendo..."
+              );
+              this.saveToken(response);
+              setTimeout(
+                function() {
+                  this.$router.push({ path: "/home" });
+                }.bind(this),
+                1000
+              );
+            }
           }
         })
         .catch(error => {
@@ -108,6 +114,10 @@ export default {
           );
         });
     },
+    saveToken(response) {
+      sessionStorage.setItem("ap_user_id", response.data.user_ID);
+      sessionStorage.setItem("ap_token", response.data.token);
+    },
     makeToast(variant = null, tittle, text) {
       this.$bvToast.toast(text, {
         toaster: "b-toaster-bottom-right",
@@ -116,9 +126,6 @@ export default {
         solid: true,
         appendToast: true
       });
-    },
-    toHome(){
-        this.$router.push({path: "/home"})
     }
   }
 };
