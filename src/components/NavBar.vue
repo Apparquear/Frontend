@@ -29,7 +29,7 @@
               User
             </template>
             <b-dropdown-item :to="'#'">Profile</b-dropdown-item>
-            <b-dropdown-item :to="'login'">Salir</b-dropdown-item>
+            <b-dropdown-item @click="logOut">Salir</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -38,8 +38,40 @@
 </template>
 
 <script>
+import auth from "../logic/auth";
+
 export default {
-  name: "NavBar"
+  name: "NavBar",
+  methods: {
+    makeToast(variant = null, tittle, text) {
+      this.$bvToast.toast(text, {
+        toaster: "b-toaster-bottom-right",
+        title: tittle,
+        variant: variant,
+        solid: true,
+        appendToast: true
+      });
+    },
+    invalidateToken() {
+      let token = sessionStorage.getItem("ap_token")
+      auth
+        .invalidate_token(token)
+        .then(response => {
+          if (response && response.status == 200) {
+            console.log("token invalidado");
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      sessionStorage.removeItem("ap_user_id");
+      sessionStorage.removeItem("ap_token");
+    },
+    logOut() {
+      this.invalidateToken();
+      this.$router.push("/login");
+    }
+  }
 };
 </script>
 
