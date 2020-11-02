@@ -1,41 +1,52 @@
 <template>
-  <div class="disp">
-    <b-container>
-        <h1 class="title"><b>Disponibilidad de Bahías</b></h1>
+  <div>
+    <NavBar> </NavBar>
+    <b-container class="disp">
+      <h1 class="title"><b>Disponibilidad de Bahías</b></h1>
 
-        <b-form class="form" @submit="checkForm" id="form">
-
+      <b-form class="form" @submit="checkForm" id="form">
         <label class="title2">Id del parqueadero</label>
         <b-form-input v-model="number"></b-form-input>
-        
+
         <label class="title2">Fecha</label>
-        <b-form-datepicker id="example-datepicker" v-model="date" class="mb-2"></b-form-datepicker>
+        <b-form-datepicker
+          id="example-datepicker"
+          v-model="date"
+          class="mb-2"
+        ></b-form-datepicker>
 
         <label class="title2">Hora</label>
         <b-form-timepicker v-model="time" locale="en"></b-form-timepicker>
 
         <!-- Submit button -->
-        <b-button block class="button-primary mt-4" size="lg" type="submit"
+        <b-button
+          size="lg"
+          block
+          class="button-primary mt-4"
+          type="Submit"
+          :to="'bahias'"
           >Consultar</b-button
         >
-
-        </b-form>
+      </b-form>
     </b-container>
+    <Footer> </Footer>
   </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        types: [
-          'number',
-          'date',
-          'time',
-        ]
-      }
-    }
-  }
+import NavBar from "./NavBar.vue";
+import Footer from "./Footer.vue";
+export default {
+  data() {
+    return {
+      types: ["number", "date", "time"],
+    };
+  },
+  components: {
+    NavBar,
+    Footer,
+  },
+};
 </script>
 
 <style scoped>

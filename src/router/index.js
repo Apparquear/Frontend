@@ -5,6 +5,8 @@ import Register from "@/components/Register";
 import Contact from "@/components/Contact";
 import Login from "@/components/Login";
 import ParkingRegister from "@/components/ParkingRegister";
+import Disponibles from "@/components/Disponibles";
+import Bahias from "@/components/Bahias";
 
 Vue.use(Router);
 
@@ -17,6 +19,7 @@ export default new Router({
     { path: "/contact", name: "contact", component: Contact },
     { path: "/parking_register", name: "parking_register", component: ParkingRegister},
     { path: "/disponibles", name: "disponibles",component: Disponibles},
+    { path: "/bahias", name:"bahias",component: Bahias},
     { path: "/:catchAll(.*)", redirect: "home" }
   ]
 });
