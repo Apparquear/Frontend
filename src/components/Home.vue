@@ -18,7 +18,6 @@
           ¿Buscas un parqueadero? Nosotros lo buscamos por ti.
         </p>
 
-<<<<<<< HEAD
       <b-button 
             size="md"
             class="my-2 my-sm-0"
@@ -29,13 +28,7 @@
       <b-button href="#" class="button-secondary">Botón secundario</b-button>
     </b-jumbotron>
     <Footer> </Footer>
-=======
-        <b-button href="#" class="button-primary">Botón primario</b-button>
-        <b-button href="#" class="button-secondary">Botón secundario</b-button>
-      </b-jumbotron>
-      <Footer> </Footer>
     </div>
->>>>>>> master
   </div>
 </template>
 

@@ -6,7 +6,9 @@
 
       <b-form class="form" @submit="checkForm" id="form">
         <label class="title2">Id del parqueadero</label>
-        <b-form-input v-model="number"></b-form-input>
+        <b-form-input 
+        v-model="number"
+        ></b-form-input>
 
         <label class="title2">Fecha</label>
         <b-form-datepicker
@@ -16,15 +18,17 @@
         ></b-form-datepicker>
 
         <label class="title2">Hora</label>
-        <b-form-timepicker v-model="time" locale="en"></b-form-timepicker>
+        <b-form-timepicker 
+        v-model="time" 
+        locale="en"
+        ></b-form-timepicker>
 
         <!-- Submit button -->
         <b-button
           size="lg"
           block
-          class="button-primary mt-4"
-          type="Submit"
-          :to="'bahias'"
+          class="button-primary"
+          v-on:click.prevent="get"
           >Consultar</b-button
         >
       </b-form>
@@ -45,6 +49,11 @@ export default {
   components: {
     NavBar,
     Footer,
+  },
+  methods: {
+    get: function () {
+      this.$router.push({ path: "/bahias" });
+    },
   },
 };
 </script>
