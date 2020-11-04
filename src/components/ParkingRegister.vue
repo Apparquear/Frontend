@@ -1,6 +1,5 @@
 <template>
   <div>
-<<<<<<< HEAD
     <NavBar> </NavBar>
     <div class="signup-form-container">
       <form role="form" id="register-form" autocomplete="off">
@@ -20,7 +19,7 @@
           <div class="row">
             <div class="form-group col-lg-6">
               <label for="name">Nombre</label>
-              <div class="input-group"  pattern="/^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ0-9\u00f1\u00d1])[a-zA-ZÀ-ÿ0-9\u00f1\u00d1]+$/g" required>
+              <div class="input-group" >
                 <div class="input-group-addon">
                   <span class="glyphicon glyphicon-user"></span>
                 </div>
@@ -71,15 +70,6 @@
               </div>
               <span class="help-block" id="error"></span>
             </div>
-=======
-    <div v-if="!authenticated">
-      <Loading> </Loading>
-    </div>
-    <div v-if="authenticated">
-      <NavBar> </NavBar>
-      <b-container class="parkingRegister">
-        <h1 class="title"><b>Registrar Parqueadero</b></h1>
->>>>>>> 828b13dbc6ad1c6369cfa353c88fc4635d6bd3a3
 
         <b-form class="form" @submit="checkForm" id="form">
           <!-- Nombre -->
@@ -341,7 +331,7 @@ export default {
       this.showParagraph = !this.showParagraph;
     },
     checkForm: function() {
-      let regexName = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
+      let regexName = /^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ0-9\u00f1\u00d1])[a-zA-ZÀ-ÿ0-9\u00f1\u00d1]+$/g;
 
       // Validaciones
       if (!this.parking_name) {
