@@ -19,13 +19,14 @@
           <div class="row">
             <div class="form-group col-lg-6">
               <label for="name">Nombre</label>
-              <div class="input-group">
+              <div class="input-group"  pattern="/^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ0-9\u00f1\u00d1])[a-zA-ZÀ-ÿ0-9\u00f1\u00d1]+$/g" required>
                 <div class="input-group-addon">
                   <span class="glyphicon glyphicon-user"></span>
                 </div>
                 <input
                   name="name"
                   type="text"
+                  id="name"
                   class="form-control"
                   placeholder="Nombre"
                 />
