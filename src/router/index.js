@@ -4,7 +4,7 @@ import Home from "@/components/Home";
 import Register from "@/components/Register";
 import Contact from "@/components/Contact";
 import Login from "@/components/Login";
-import Mapgoogle from "@/components/Mapgoogle";
+import Parkingmap from "@/components/Parkingmap";
 import ParkingRegister from "@/components/ParkingRegister";
 
 Vue.use(Router);
@@ -16,7 +16,7 @@ export default new Router({
     { path: "/login", name: "login", component: Login },
     { path: "/register", name: "register", component: Register },
     { path: "/contact", name: "contact", component: Contact },
-    { path: "/mapgoogle", name: "mapgoogle", component: Mapgoogle},
+    { path: "/parkingmap", name: "parkingmap", component: Parkingmap},
     {
       path: "/parking_register",
       name: "parking_register",

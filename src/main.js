@@ -8,7 +8,6 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import VueGeolocation from 'vue-browser-geolocation'
-import * as VueGoogleMaps from "vue2-google-maps";
 import { LMap, LTileLayer, LMarker, LPopup, LTooltip, LIcon, LControl } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -20,27 +19,12 @@ Vue.component('l-tooltip', LTooltip);
 Vue.component('l-icon', LIcon);
 Vue.component('l-control', LControl);
 
-Vue.use(VueGoogleMaps,{
-  load: {
-    key:"AIzaSyDOmchxjoftzUXnGjF9QdJpRb7L-dPDasU",
-  },
-});
-
-
 // Install BootstrapVue
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 // User geolocation
 Vue.use(VueGeolocation)
-// Import vue2-google-maps
-Vue.use(VueGoogleMaps, {
-  load: {
-    key: 'AIzaSyD3zua9NYYHluLw7PKlx6DhHq7Ycv89cGE',
-    region: 'CO',
-    language: 'es',
-  }, 
-})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
