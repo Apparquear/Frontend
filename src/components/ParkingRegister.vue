@@ -1,77 +1,5 @@
 <template>
   <div>
-<<<<<<< HEAD
-    <NavBar> </NavBar>
-    <div class="signup-form-container">
-      <form role="form" id="register-form" autocomplete="off">
-        <div class="form-header">
-          <h3 class="title" style="color:MediumSeaGreen">
-            <i class="fa fa-user"></i> Registrar Parqueadero
-          </h3>
-
-          <div class="pull-right">
-            <h3 class="title">
-              <span class="glyphicon glyphicon-pencil"></span>
-            </h3>
-          </div>
-        </div>
-
-        <div class="form-body">
-          <div class="row">
-            <div class="form-group col-lg-6">
-              <label for="name">Nombre</label>
-              <div class="input-group"  pattern="/^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ0-9\u00f1\u00d1])[a-zA-ZÀ-ÿ0-9\u00f1\u00d1]+$/g" required>
-                <div class="input-group-addon">
-                  <span class="glyphicon glyphicon-user"></span>
-                </div>
-                <input
-                  name="name"
-                  type="text"
-                  id="name"
-                  class="form-control"
-                  placeholder="Nombre"
-                />
-              </div>
-              <span class="help-block" id="error"></span>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="form-group col-lg-6">
-              <label for="ubication">Ubicacion</label>
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <span class="glyphicon glyphicon-envelope"></span>
-                </div>
-                <input
-                  name="ubication"
-                  type="text"
-                  class="form-control"
-                  placeholder="Ubicacion"
-                />
-              </div>
-              <span class="help-block" id="error"></span>
-            </div>
-          </div>
-
-          <label for="schedule_open">Horario</label>
-          <div class="row">
-            <div class="form-group col-lg-2">
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <span class="glyphicon glyphicon-envelope"></span>
-                </div>
-                <input
-                  name="schedule_open"
-                  id="schedule_open"
-                  type="time"
-                  class="form-control"
-                  placeholder="Abrir"
-                />
-              </div>
-              <span class="help-block" id="error"></span>
-            </div>
-=======
     <div v-if="!authenticated">
       <Loading> </Loading>
     </div>
@@ -79,7 +7,6 @@
       <NavBar> </NavBar>
       <b-container class="parkingRegister">
         <h1 class="title"><b>Registrar Parqueadero</b></h1>
->>>>>>> 828b13dbc6ad1c6369cfa353c88fc4635d6bd3a3
 
         <b-form class="form" @submit="checkForm" id="form">
           <!-- Nombre -->
@@ -341,7 +268,7 @@ export default {
       this.showParagraph = !this.showParagraph;
     },
     checkForm: function() {
-      let regexName = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
+      let regexName = /^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ0-9\u00f1\u00d1])[a-zA-ZÀ-ÿ0-9\u00f1\u00d1]+$/g;
 
       // Validaciones
       if (!this.parking_name) {
