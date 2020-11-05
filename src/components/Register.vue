@@ -85,7 +85,7 @@ export default {
   }),
   methods: {
     checkForm: function() {
-      let regexName = /^[A-Za-z\s]+$/g;
+      let regexName = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
       let regexEmail = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
       // Validaciones
       if (!this.name) {
@@ -177,9 +177,9 @@ export default {
         )
         .then(response => {
           if(response && response.status == 200){
-            this.makeToast("sucess", "Registro completado", "Has completado tu registro exitosamente");
+            this.makeToast("success", "Registro completado", "Has completado tu registro exitosamente, redirigiendo...");
             setTimeout(function(){
-              this.toLogin()
+              this.$router.push({ path: '/login' });
             }.bind(this),1000);
           }
         })
@@ -195,9 +195,6 @@ export default {
         solid: true,
         appendToast: true
       });
-    },
-    toLogin(){
-      this.$router.push({ path: '/login' });
     }
   }
 };
@@ -226,6 +223,7 @@ export default {
   background: #004e64;
   border-radius: 10px;
   padding: 40px;
+  max-width: 540px;
   box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
 }
 </style>
