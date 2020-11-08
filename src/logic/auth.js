@@ -40,17 +40,26 @@ export default {
       motorcycle_cost_minute,
       bike_cost_minute
     };
-    return axios.post(ENDPOINT_PATH + "parking/save/" + user_id + "/" + token , parking);
+    return axios.post(
+      ENDPOINT_PATH + "parking/save/" + user_id + "/" + token,
+      parking
+    );
   },
-  invalidate_token(token){
+  invalidate_token(token) {
     const body = {
       token
-    }
+    };
     return axios.post(ENDPOINT_PATH + "token/invalidate", body);
   },
-  nearByParking(bounds){
-    const body = [{"locationID": "1","parkingID": "1", "latitude": bounds[0][0],"longitude": bounds[0][1]},
-    {"locationID": "1","parkingID": "1", "latitude": bounds[1][0],"longitude": bounds[1][1]}]   
-    return axios.get(ENDPOINT_PATH + "parking/findRange", bounds);
-  },
+  nearByParking(bounds) {
+    let latitude, longitude;
+    latitude = bounds._southWest.lat;
+    longitude = bounds._southWest.lng;
+    let southWest = { latitude, longitude };
+    latitude = bounds._northEast.lat;
+    longitude = bounds._northEast.lng;
+    let northEast = { latitude, longitude };
+    const body = { southWest, northEast };
+    return axios.post(ENDPOINT_PATH + "parking/findRange", body);
+  }
 };
