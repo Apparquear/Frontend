@@ -208,7 +208,7 @@ export default {
       slot_v: "",
       slot_m: "",
       slot_b: "",
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      url: "https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=b9be2ea7c0ba49eaa9c1192380d59f24",
       zoom: 15,
       markerLocation: [4.635062, -74.080676]
     };

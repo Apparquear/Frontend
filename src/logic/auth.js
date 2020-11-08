@@ -47,5 +47,10 @@ export default {
       token
     }
     return axios.post(ENDPOINT_PATH + "token/invalidate", body);
-  }
+  },
+  nearByParking(bounds){
+    const body = [{"locationID": "1","parkingID": "1", "latitude": bounds[0][0],"longitude": bounds[0][1]},
+    {"locationID": "1","parkingID": "1", "latitude": bounds[1][0],"longitude": bounds[1][1]}]   
+    return axios.get(ENDPOINT_PATH + "parking/findRange", bounds);
+  },
 };
