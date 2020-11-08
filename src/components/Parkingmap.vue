@@ -5,7 +5,7 @@
     </div>
     <div v-if="authenticated">
       <NavBar> </NavBar>
-      <div style="height: 800px; width: 100%;">
+      <div style="height: 92vh; width: 100%;">
         <l-map
           :zoom="zoom"
           :center="center"

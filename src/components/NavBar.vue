@@ -10,20 +10,19 @@
         <b-navbar-nav class="ml-auto">
           <b-button
             size="md"
-            class="my-2 my-sm-0"
+            class="my-1 mx-2 mx-sm-1 button-primary"
             type="button"
             :to="'parkingmap'"
             >Encuentra parqueadero</b-button
           >
-          
           <b-button
             size="md"
-            class="my-2 my-sm-0"
+            class="my-1 mx-2 mx-sm-1 button-primary"
             type="button"
             :to="'parking_register'"
             >Registrar parqueadero</b-button
           >
-          <b-nav-item-dropdown right>
+          <b-nav-item-dropdown right style="align-self: center">
             <!-- Using 'button-content' slot -->
             <template v-slot:button-content>
               User
@@ -76,6 +75,11 @@ export default {
 </script>
 
 <style scoped>
+.button-primary {
+  background-color: #4a051c;
+  border-color: #4a051c;
+  color: #f6f7eb;
+}
 .link {
   color: #004e64;
 }
