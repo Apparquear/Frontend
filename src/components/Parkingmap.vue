@@ -6,11 +6,6 @@
     <div v-if="authenticated">
       <NavBar> </NavBar>
       <div style="height: 800px; width: 100%;">
-        <div class="info" style="height: 15%">
-          <span>Center: {{ center }}</span>
-          <span>Zoom: {{ zoom }}</span>
-          <span>Bounds: {{ bounds }}</span>
-        </div>
         <l-map
           :zoom="zoom"
           :center="center"
@@ -27,7 +22,9 @@
             <l-popup>
               <b>{{ parking.parking.parking_name }}</b>
               <br>
-              Espacios disponibles: {{ parking.parking.total_spaces_available }}
+              Espacios disponibles: {{ parking.parking.total_spaces_available }}              
+              <br>
+              Tarifa por minuto: <b>{{parking.parking.car_cost_minute}}</b>
             </l-popup>
             <l-icon>
               <img src="../assets/parking-marker.png" />
