@@ -29,8 +29,6 @@ export default {
   ) {
     const parking = {
       parking_name,
-      latitude,
-      longitude,
       opening_time,
       closing_time,
       car_spaces,
@@ -41,7 +39,7 @@ export default {
       bike_cost_minute
     };
     return axios.post(
-      ENDPOINT_PATH + "parking/save/" + user_id + "/" + token,
+      ENDPOINT_PATH + "parking/save/" + user_id + "/" + token + "/" + latitude + "/" + longitude,
       parking
     );
   },
