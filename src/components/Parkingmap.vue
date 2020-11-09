@@ -22,13 +22,15 @@
             <l-popup>
               <b><FONT SIZE=3>{{ parking.parking.parking_name }}</font></b>
               <br />
-              <b>Hora de apertura:</b>{{ parking.parking.opening_time }}
+              <b>Hora de apertura: </b>{{ parking.parking.opening_time }}
               <br />
-              <b>Hora de cierre:</b>{{ parking.parking.closing_time }}
+              <b>Hora de cierre: </b>{{ parking.parking.closing_time }}
               <br />
-              <b>Tarifa por minuto:</b>{{ parking.parking.car_cost_minute }}
+              <b>Tarifa por minuto: </b>{{ parking.parking.car_cost_minute }}
               <br />
-              <b>Espacios disponibles:</b>{{ parking.parking.total_spaces_available }}
+              <b>Espacios disponibles: </b>{{ parking.parking.total_spaces_available }}
+              <br />
+              <b>Puntaje parqueadero: </b>{{ parking.parking.score }}
             </l-popup>
             <l-icon>
               <img src="../assets/parking-marker.png" />
