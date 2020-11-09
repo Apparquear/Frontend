@@ -15,8 +15,8 @@
         >
           <l-tile-layer :url="url"></l-tile-layer>
           <l-marker
-            v-for="parking in response"
-            v-bind:key="parking"
+            v-for="(parking, index) in response"
+            v-bind:key="parking + index"
             :latLng="[parking.latitude, parking.longitude]"
           >
             <l-popup>
@@ -103,7 +103,6 @@ export default {
       auth
         .nearByParking(bounds)
         .then((response) => {
-          console.log(response);
           this.response = response.data;
         })
         .catch((error) => {
