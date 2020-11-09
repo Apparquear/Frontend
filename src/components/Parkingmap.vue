@@ -5,7 +5,7 @@
     </div>
     <div v-if="authenticated">
       <NavBar> </NavBar>
-      <div style="height: 92vh; width: 100%;">
+      <div style="height: 92vh; width: 100%">
         <l-map
           :zoom="zoom"
           :center="center"
@@ -20,22 +20,22 @@
             :latLng="[parking.latitude, parking.longitude]"
           >
             <l-popup>
-              <b>{{ parking.parking.parking_name }}</b>
-              <br>
-              Espacios disponibles: {{ parking.parking.total_spaces_available }}              
-              <br>
-              Tarifa por minuto: <b>{{parking.parking.car_cost_minute}}</b>
+              <b><FONT SIZE=3>{{ parking.parking.parking_name }}</font></b>
+              <br />
+              <b>Hora de apertura:</b>{{ parking.parking.opening_time }}
+              <br />
+              <b>Hora de cierre:</b>{{ parking.parking.closing_time }}
+              <br />
+              <b>Tarifa por minuto:</b>{{ parking.parking.car_cost_minute }}
+              <br />
+              <b>Espacios disponibles:</b>{{ parking.parking.total_spaces_available }}
             </l-popup>
             <l-icon>
               <img src="../assets/parking-marker.png" />
             </l-icon>
           </l-marker>
-          <l-marker
-            :latLng="[coordinates.lat, coordinates.lng]"
-          >
-            <l-popup>
-              Tu ubicación
-            </l-popup>
+          <l-marker :latLng="[coordinates.lat, coordinates.lng]">
+            <l-popup> Tu ubicación </l-popup>
             <l-icon>
               <img src="../assets/marker.png" />
             </l-icon>
@@ -59,7 +59,7 @@ import {
   LPopup,
   LTooltip,
   LIcon,
-  LControl
+  LControl,
 } from "vue2-leaflet";
 
 export default {
@@ -73,7 +73,7 @@ export default {
     LControl,
     NavBar,
     Footer,
-    Loading
+    Loading,
   },
   data() {
     return {
@@ -83,7 +83,7 @@ export default {
         "https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=b9be2ea7c0ba49eaa9c1192380d59f24",
       zoom: 15,
       center: null,
-      bounds: null
+      bounds: null,
     };
   },
   methods: {
@@ -97,14 +97,14 @@ export default {
       this.bounds = bounds;
       this.nearByParking(bounds);
     },
-    nearByParking: function(bounds) {
+    nearByParking: function (bounds) {
       auth
         .nearByParking(bounds)
-        .then(response => {
+        .then((response) => {
           console.log(response);
           this.response = response.data;
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
           this.makeToast("danger", error);
         });
@@ -115,11 +115,11 @@ export default {
         title: tittle,
         variant: variant,
         solid: true,
-        appendToast: true
+        appendToast: true,
       });
-    }
+    },
   },
-  mounted: function() {
+  mounted: function () {
     let $vm = this;
 
     function invalidateToken() {
@@ -127,12 +127,12 @@ export default {
       sessionStorage.removeItem("ap_token");
       auth
         .invalidate_token(token)
-        .then(response => {
+        .then((response) => {
           if (response && response.status == 200) {
             console.log("token invalidado");
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     }
@@ -157,7 +157,7 @@ export default {
     function authenticate() {
       getToken();
     }
-    setTimeout(function() {
+    setTimeout(function () {
       authenticate();
     }, 1000);
   },
@@ -165,16 +165,16 @@ export default {
     let $vm = this;
     // Tomar las coordenadas de los usuarios desde el request del browser
     this.$getLocation({})
-      .then(coordinates => {
+      .then((coordinates) => {
         $vm.center = coordinates;
         $vm.coordinates = coordinates;
         let bounds = {
           _southWest: latLng(coordinates.lat - 0.02, coordinates.lng - 0.02),
-          _northEast: latLng(coordinates.lat + 0.02, coordinates.lng + 0.02)
+          _northEast: latLng(coordinates.lat + 0.02, coordinates.lng + 0.02),
         };
         this.nearByParking(bounds);
       })
-      .catch(error => alert(error));
-  }
+      .catch((error) => alert(error));
+  },
 };
 </script>
