@@ -103,10 +103,12 @@ export default {
 <style scoped>
 .button-primary {
   background-color: #4a051c;
+  border-color: #4a051c;
   color: #f6f7eb;
 }
 .button-secondary {
   background-color: #1a936f;
+  border-color: #1a936f;
   color: #f6f7eb;
 }
 .max-height {

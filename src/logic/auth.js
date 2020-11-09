@@ -29,8 +29,6 @@ export default {
   ) {
     const parking = {
       parking_name,
-      latitude,
-      longitude,
       opening_time,
       closing_time,
       car_spaces,
@@ -40,12 +38,26 @@ export default {
       motorcycle_cost_minute,
       bike_cost_minute
     };
-    return axios.post(ENDPOINT_PATH + "parking/save/" + user_id + "/" + token , parking);
+    return axios.post(
+      ENDPOINT_PATH + "parking/save/" + user_id + "/" + token + "/" + latitude + "/" + longitude,
+      parking
+    );
   },
-  invalidate_token(token){
+  invalidate_token(token) {
     const body = {
       token
-    }
+    };
     return axios.post(ENDPOINT_PATH + "token/invalidate", body);
+  },
+  nearByParking(bounds) {
+    let latitude, longitude;
+    latitude = bounds._southWest.lat;
+    longitude = bounds._southWest.lng;
+    let southWest = { latitude, longitude };
+    latitude = bounds._northEast.lat;
+    longitude = bounds._northEast.lng;
+    let northEast = { latitude, longitude };
+    const body = { southWest, northEast };
+    return axios.post(ENDPOINT_PATH + "parking/findRange", body);
   }
 };

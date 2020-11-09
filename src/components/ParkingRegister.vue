@@ -50,16 +50,9 @@
                     Ubicación de tu parqueadero
                   </l-popup>
                   <l-icon>
-                    <img src="../assets/marker.png" />
+                    <img src="../assets/parking-marker.png" />
                   </l-icon>
                 </l-marker>
-                <l-control position="bottomleft">
-                  <b-alert show variant="dark"
-                    ><h4 class="alert-heading">
-                      {{ markerLocation }}
-                    </h4></b-alert
-                  >
-                </l-control>
               </l-map>
             </div>
           </b-form-group>
@@ -208,12 +201,21 @@ export default {
       slot_v: "",
       slot_m: "",
       slot_b: "",
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      url:
+        "https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=b9be2ea7c0ba49eaa9c1192380d59f24",
       zoom: 15,
       markerLocation: [4.635062, -74.080676]
     };
   },
-
+  beforeCreate() {
+    let $vm = this;
+    // Tomar las coordenadas de los usuarios desde el request del browser
+    this.$getLocation({})
+      .then(coordinates => {
+        $vm.markerLocation = coordinates;
+      })
+      .catch(error => alert(error));
+  },
   mounted: function() {
     let $vm = this;
 
@@ -256,7 +258,6 @@ export default {
       authenticate();
     }, 1000);
   },
-
   methods: {
     zoomUpdate(zoom) {
       this.zoom = zoom;
