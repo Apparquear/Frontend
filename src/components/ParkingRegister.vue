@@ -34,7 +34,7 @@
               <div style="height: 100px overflow: auto;">
                 <p>
                   Arrastra el mapa hasta que tu parqueadero sea visible y
-                  coincida con el marcador azul ubicado en el centro
+                  coincida con el marcador ubicado en el centro
                 </p>
               </div>
               <l-map
