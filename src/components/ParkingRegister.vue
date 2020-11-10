@@ -269,8 +269,7 @@ export default {
       this.showParagraph = !this.showParagraph;
     },
     checkForm: function() {
-      let regexName = /^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ0-9\u00f1\u00d1])[a-zA-ZÀ-ÿ0-9\u00f1\u00d1]+$/g;
-
+      let regexName = /^[0-9a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[0-9a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[0-9a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
       // Validaciones
       if (!this.parking_name) {
         return this.makeToast(
