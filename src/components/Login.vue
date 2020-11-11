@@ -63,7 +63,7 @@ export default {
           "Por favor digita tu contraseña"
         );
       }
-      if (!regexEmail.test(this.email)) {
+      if (!regexEmail.test(this.email.toLowerCase())) {
         return this.makeToast(
           "warning",
           "Email inválido",
@@ -81,7 +81,7 @@ export default {
     },
     login() {
       auth
-        .login(this.email, this.password)
+        .login(this.email.toLowerCase(), this.password)
         .then(response => {
           if (response && response.data) {
             if (!response.data.valid) {

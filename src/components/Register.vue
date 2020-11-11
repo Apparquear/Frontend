@@ -144,7 +144,7 @@ export default {
           "Tu edad debe estar entre los 12 y 100 años"
         );
       }
-      if (!regexEmail.test(this.email)) {
+      if (!regexEmail.test(this.email.toLowerCase())) {
         return this.makeToast(
           "warning",
           "Email inválido",
@@ -172,7 +172,7 @@ export default {
         .register(
           this.name,
           this.password,
-          this.email,
+          this.email.toLowerCase(),
           this.age
         )
         .then(response => {
