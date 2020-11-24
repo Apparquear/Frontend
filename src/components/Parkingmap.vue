@@ -23,6 +23,7 @@
             <l-popup>
               <b-card
                 :title="parking.parking.parking_name"
+                style="border : none!important; pading: 0; "
               >                                
                 <b><b-icon-clock style="width: 15px; height: 15px;"></b-icon-clock> : </b> {{ parking.parking.opening_time }}
                 <br />
