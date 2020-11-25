@@ -3,35 +3,42 @@
     <NavBar> </NavBar>
     <b-container class="disp">
       <h1 class="title"><b>Reservar bahia</b></h1>
-
       <b-form class="form" @submit="checkForm" id="form">
-        
-
         <label class="title2">Fecha de Entrada</label>
-       <!-- <b-form-datepicker
+        <!-- <b-form-datepicker
           id="example-datepicker"
           v-model="date"
           class="mb-2"
         ></b-form-datepicker> -->
-        <datetime format="YYYY-MM-DD H:i:s" width="300px" v-model="datetimeIn"></datetime>
-
+        <datetime
+          format="YYYY-MM-DD H:i:s"
+          width="300px"
+          v-model="datetimeIn"
+        ></datetime>
 
         <label class="title2">Fecha de Salida</label>
 
-        <datetime format="YYYY-MM-DD H:i:s" width="300px" v-model="datetimeOut"></datetime>
+        <datetime
+          format="YYYY-MM-DD H:i:s"
+          width="300px"
+          v-model="datetimeOut"
+        ></datetime>
         <!--<b-form-timepicker v-model="time" locale="en"></b-form-timepicker> -->
 
         <!-- Submit button -->
-        
-        <select v-model="newRol" label="Seleccione el rol" class="browser-default custom-select">
-                  <option value="carros">Carros</option>
-                  <option value="motos">Motos</option>
-                  <option value="cicla">Cicla</option>
-                </select>
+        <label class="title2">Tipo de vehiculo</label>
+        <select
+          v-model="newRol"
+          label="Seleccione el rol"
+          class="browser-default custom-select"
+        >
+          <option value="carros">Carros</option>
+          <option value="motos">Motos</option>
+          <option value="cicla">Cicla</option>
+        </select>
         <b-button
           size="lg"
-          block
-          class="button-primary"
+          block class="button-primary"
           v-on:click.prevent="get"
           >Reservar</b-button
         >
@@ -44,21 +51,21 @@
 <script>
 import NavBar from "./NavBar.vue";
 import Footer from "./Footer.vue";
-import datetime from 'vuejs-datetimepicker';
+import datetime from "vuejs-datetimepicker";
 export default {
   data() {
     return {
-        value: null,
-        dateTimeIn:'',
-        dateTimeOut:'',
-        options:['carros','ciclas','motos'],
-        types: [ "date", "time"],
+      value: null,
+      dateTimeIn: "",
+      dateTimeOut: "",
+      options: ["carros", "ciclas", "motos"],
+      types: ["date", "time"],
     };
   },
   components: {
     NavBar,
     Footer,
-    datetime
+    datetime,
   },
   methods: {
     get: function () {

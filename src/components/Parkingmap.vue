@@ -35,6 +35,7 @@
               <br />
               <b>Puntaje parqueadero: </b>{{ parking.parking.score }}
               <br />
+              <button v-on:click='$router.push({ path: "/reserva" })' >  RESERVAR </button>
               </l-popup>
             <l-icon>
               <img src="../assets/parking-marker.png" />
