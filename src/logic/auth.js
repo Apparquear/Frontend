@@ -74,6 +74,6 @@ export default {
       vehicle_type,
     };
 
-    return axios.post(ENDPOINT_PATH + "save" + "/" + userID + "/" + parkingID + "/" + token , reserva);
+    return axios.post(ENDPOINT_PATH + "reservation/save" + "/" + userID + "/" + parkingID + "/" + token , reserva);
   }
 };

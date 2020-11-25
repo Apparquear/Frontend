@@ -13,7 +13,7 @@
             v-model="reservation_time"
             :config="config"
             class="form-control"
-            name="initial-date"
+            name="reservation_time"
           >
           </flat-pickr>
 
@@ -23,7 +23,7 @@
             v-model="final_time"
             :config="config"
             class="form-control"
-            name="final-date"
+            name="final_time"
           >
           </flat-pickr>
 
@@ -38,11 +38,7 @@
             <option value="cicla">Cicla</option>
           </select>
           <br />
-          <b-button
-            size="lg"
-            block
-            class="button-primary"
-            type="submit"
+          <b-button size="lg" block class="button-primary" type="submit"
             >Reservar</b-button
           >
         </b-form>
@@ -71,7 +67,7 @@ export default {
         altFormat: "F j, Y",
         altInput: true,
         enableTime: true,
-        dateFormat: "Y-m-d H:i:S",
+        dateFormat: "Y-d-mTH:i:S",
       },
 
       options: ["carros", "ciclas", "motos"],
@@ -156,7 +152,7 @@ export default {
 
     reserva: function () {
       let ap_user_id, ap_token, ap_parking_id;
-    
+
       if (
         sessionStorage.getItem("ap_user_id") &&
         sessionStorage.getItem("ap_token") &&
@@ -166,7 +162,11 @@ export default {
         ap_token = sessionStorage.getItem("ap_token");
         ap_parking_id = sessionStorage.getItem("ap_parking_id");
 
+        console.log(this.reservation_time);
+        console.log(this.final_time);
+        console.log(this.vehicle_type);
         auth
+
           .reserva(
             this.reservation_time,
             this.final_time,
@@ -175,6 +175,7 @@ export default {
             ap_token,
             ap_parking_id
           )
+
           .then((response) => {
             if (response && response.status == 200) {
               this.makeToast(
