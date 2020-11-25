@@ -11,7 +11,7 @@
           <label class="title2">Fecha de Entrada</label>
 
           <flat-pickr
-            v-model="initialdate"
+            v-model="reservation_time"
             :config="config"
             class="form-control"
             name="initial-date"
@@ -21,7 +21,7 @@
           <label class="title2">Fecha de Salida</label>
 
           <flat-pickr
-            v-model="finaldate"
+            v-model="final_time"
             :config="config"
             class="form-control"
             name="final-date"
@@ -30,7 +30,7 @@
 
           <label class="title2">Tipo de vehiculo</label>
           <select
-            v-model="newRol"
+            v-model="vehicle_type"
             label="Seleccione el rol"
             class="browser-default custom-select"
           >
@@ -65,9 +65,9 @@ export default {
   data() {
     return {
       authenticated: false,
-      initialdate: null,
-      finaldate: null,
-      newRol: "",
+      reservation_time: "",
+      final_time: "",
+      vehicle_type: "",
       config: {
         altFormat: "F j, Y",
         altInput: true,
