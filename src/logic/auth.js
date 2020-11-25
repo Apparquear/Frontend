@@ -24,7 +24,7 @@ export default {
     car_cost_minute,
     motorcycle_cost_minute,
     bike_cost_minute,
-    user_id,
+    userID,
     token
   ) {
     const parking = {
@@ -39,7 +39,7 @@ export default {
       bike_cost_minute
     };
     return axios.post(
-      ENDPOINT_PATH + "parking/save/" + user_id + "/" + token + "/" + latitude + "/" + longitude,
+      ENDPOINT_PATH + "parking/save/" + userID + "/" + token + "/" + latitude + "/" + longitude,
       parking
     );
   },
@@ -59,5 +59,21 @@ export default {
     let northEast = { latitude, longitude };
     const body = { southWest, northEast };
     return axios.post(ENDPOINT_PATH + "parking/findRange", body);
+  },
+  reserva(
+    reservation_time,
+    final_time,
+    vehicle_type,
+    userID,
+    token,
+    parkingID,
+  ) {
+    const reserva = {
+      reservation_time,
+      final_time,
+      vehicle_type,
+    };
+
+    return axios.post(ENDPOINT_PATH + "reservation/save" + "/" + userID + "/" + parkingID + "/" + token , reserva);
   }
 };

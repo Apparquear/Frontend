@@ -18,30 +18,76 @@
             v-for="(parking, index) in response"
             v-bind:key="parking + index"
             :latLng="[parking.latitude, parking.longitude]"
-            style="max-width: 20rem;"
+            style="max-width: 20rem"
           >
             <l-popup>
               <b-card
                 :title="parking.parking.parking_name"
-                style="border : none!important; pading: 0; "
-              >                                
-                <b><b-icon-clock style="width: 15px; height: 15px;"></b-icon-clock> : </b> {{ parking.parking.opening_time }}
+                style="border: none !important; pading: 0"
+              >
+                <b
+                  ><b-icon-clock
+                    style="width: 15px; height: 15px"
+                  ></b-icon-clock>
+                  :
+                </b>
+                {{ parking.parking.opening_time }}
                 <br />
-                <b><b-icon-clock-fill style="width: 15px; height: 15px;"></b-icon-clock-fill> : </b>{{ parking.parking.closing_time }}
+                <b
+                  ><b-icon-clock-fill
+                    style="width: 15px; height: 15px"
+                  ></b-icon-clock-fill>
+                  : </b
+                >{{ parking.parking.closing_time }}
                 <br />
-                <b><b-icon-cash style="width: 15px; height: 15px;"></b-icon-cash> : $</b>{{ parking.parking.car_cost_minute }}
+                <b
+                  ><b-icon-cash style="width: 15px; height: 15px"></b-icon-cash>
+                  : $</b
+                >{{ parking.parking.car_cost_minute }}
                 <br />
-                <b><b-icon-star-half style="width: 15px; height: 15px;"></b-icon-star-half> : </b>{{ parking.parking.score }}
+                <b
+                  ><b-icon-star-half
+                    style="width: 15px; height: 15px"
+                  ></b-icon-star-half>
+                  : </b
+                >{{ parking.parking.score }}
                 <br />
-                <b>Espacios disponibles: </b>{{ parking.parking.total_spaces_available }}                
-                <br>
-                <br>
-                <b-button syze="sm" type="button" target="_blank" class="parking-routing-button"
-                  :href="'https://www.google.com/maps?f=d&saddr='+coordinates.lat+','+coordinates.lng+'&daddr='+parking.latitude+','+parking.longitude+'&dirflg=d&travelmode=driving'"
+                <b>Espacios disponibles: </b
+                >{{ parking.parking.total_spaces_available }}
+                <br />
+                <br />
+                <b-button
+                  syze="sm"
+                  type="button"
+                  target="_blank"
+                  class="parking-routing-button"
+                  v-on:click="reservation(parking.parking.parkingID)"
+                >
+                  Reservar
+                </b-button>
+                <br />
+                <br />
+                <b-button
+                  syze="sm"
+                  type="button"
+                  target="_blank"
+                  class="parking-routing-button"
+                  :href="
+                    'https://www.google.com/maps?f=d&saddr=' +
+                    coordinates.lat +
+                    ',' +
+                    coordinates.lng +
+                    '&daddr=' +
+                    parking.latitude +
+                    ',' +
+                    parking.longitude +
+                    '&dirflg=d&travelmode=driving'
+                  "
                   >Ruta a parqueadero
                 </b-button>
               </b-card>
             </l-popup>
+
             <l-icon>
               <img src="../assets/parking-marker.png" />
             </l-icon>
@@ -99,6 +145,10 @@ export default {
     };
   },
   methods: {
+    reservation(ap_parking_id) {
+      sessionStorage.setItem("ap_parking_id", ap_parking_id);
+      this.$router.push({ path: "/reserva" });
+    },
     zoomUpdated(zoom) {
       this.zoom = zoom;
     },
@@ -191,9 +241,9 @@ export default {
 </script>
 
 <style scoped>
-  .parking-routing-button{
-    background-color: #4a051c;
-    border-color: #4a051c;
-    color: #f6f7eb;
-  }
+.parking-routing-button {
+  background-color: #1a936f;
+  border-color: #1a936f;
+  color: #f6f7eb;
+}
 </style>
