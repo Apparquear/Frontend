@@ -5,27 +5,27 @@
       <h1 class="title"><b>Reservar bahia</b></h1>
       <b-form class="form" @submit="checkForm" id="form">
         <label class="title2">Fecha de Entrada</label>
-        <!-- <b-form-datepicker
-          id="example-datepicker"
+
+        <flat-pickr
           v-model="date"
-          class="mb-2"
-        ></b-form-datepicker> -->
-        <datetime
-          format="YYYY-MM-DD H:i:s"
-          width="300px"
-          v-model="datetimeIn"
-        ></datetime>
+          :config="config"
+          class="form-control"
+          placeholder="Select date"
+          name="date"
+        >
+        </flat-pickr>
 
         <label class="title2">Fecha de Salida</label>
 
-        <datetime
-          format="YYYY-MM-DD H:i:s"
-          width="300px"
-          v-model="datetimeOut"
-        ></datetime>
-        <!--<b-form-timepicker v-model="time" locale="en"></b-form-timepicker> -->
+        <flat-pickr
+          v-model="date"
+          :config="config"
+          class="form-control"
+          placeholder="Select date"
+          name="date"
+        >
+        </flat-pickr>
 
-        <!-- Submit button -->
         <label class="title2">Tipo de vehiculo</label>
         <select
           v-model="newRol"
@@ -36,9 +36,11 @@
           <option value="motos">Motos</option>
           <option value="cicla">Cicla</option>
         </select>
+        <br />
         <b-button
           size="lg"
-          block class="button-primary"
+          block
+          class="button-primary"
           v-on:click.prevent="get"
           >Reservar</b-button
         >
@@ -51,25 +53,32 @@
 <script>
 import NavBar from "./NavBar.vue";
 import Footer from "./Footer.vue";
-import datetime from "vuejs-datetimepicker";
+import flatPickr from "vue-flatpickr-component";
+import "flatpickr/dist/flatpickr.css";
 export default {
+  name: "Reserva",
   data() {
     return {
-      value: null,
-      dateTimeIn: "",
-      dateTimeOut: "",
+      date: new Date(),
+      // https://chmln.github.io/flatpickr/options/
+      config: {
+        altFormat: "F j, Y",
+        altInput: true,
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+      },
+
       options: ["carros", "ciclas", "motos"],
-      types: ["date", "time"],
     };
   },
   components: {
     NavBar,
     Footer,
-    datetime,
+    flatPickr,
   },
   methods: {
     get: function () {
-      this.$router.push({ path: "/bahias" });
+      this.$router.push({ path: "/" });
     },
   },
 };
@@ -79,6 +88,7 @@ export default {
 <style >
 .button-primary {
   background-color: #4a051c;
+  border-color: #4a051c;
   color: #f6f7eb;
 }
 .light-text {

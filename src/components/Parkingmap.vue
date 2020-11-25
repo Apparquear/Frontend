@@ -61,6 +61,16 @@
                   type="button"
                   target="_blank"
                   class="parking-routing-button"
+                  v-on:click="$router.push({ path: '/reserva' })">
+                  Reservar
+                </b-button>
+                <br />
+                <br />
+                <b-button
+                  syze="sm"
+                  type="button"
+                  target="_blank"
+                  class="parking-routing-button"
                   :href="
                     'https://www.google.com/maps?f=d&saddr=' +
                     coordinates.lat +
@@ -74,9 +84,7 @@
                   "
                   >Ruta a parqueadero
                 </b-button>
-                <button v-on:click="$router.push({ path: '/reserva' })">
-                  RESERVAR
-                </button>
+                    
               </b-card>
             </l-popup>
 
@@ -230,8 +238,8 @@ export default {
 
 <style scoped>
 .parking-routing-button {
-  background-color: #4a051c;
-  border-color: #4a051c;
+  background-color: #1a936f;
+  border-color: #1a936f;
   color: #f6f7eb;
 }
 </style>
