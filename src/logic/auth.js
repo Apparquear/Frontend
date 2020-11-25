@@ -65,8 +65,8 @@ export default {
     final_time,
     vehicle_type,
     userID,
+    token,
     parkingID,
-    token
   ) {
     const reserva = {
       reservation_time,
@@ -74,6 +74,6 @@ export default {
       vehicle_type,
     };
 
-    return axios.post(ENDPOINT_PATH + "save" + userID + "/" + parkingID + "/" + token , reserva);
+    return axios.post(ENDPOINT_PATH + "save" + "/" + userID + "/" + parkingID + "/" + token , reserva);
   }
 };

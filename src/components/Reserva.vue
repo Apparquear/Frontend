@@ -9,7 +9,6 @@
         <h1 class="title"><b>Reservar bahia</b></h1>
         <b-form class="form" @submit="checkForm" id="form">
           <label class="title2">Fecha de Entrada</label>
-
           <flat-pickr
             v-model="reservation_time"
             :config="config"
@@ -43,7 +42,7 @@
             size="lg"
             block
             class="button-primary"
-            v-on:click="$router.push({ path: '/calendario' })"
+            type="submit"
             >Reservar</b-button
           >
         </b-form>
@@ -72,7 +71,7 @@ export default {
         altFormat: "F j, Y",
         altInput: true,
         enableTime: true,
-        dateFormat: "Y-m-d H:i",
+        dateFormat: "Y-m-d H:i:S",
       },
 
       options: ["carros", "ciclas", "motos"],
@@ -82,6 +81,7 @@ export default {
     NavBar,
     Footer,
     flatPickr,
+    Loading,
   },
 
   mounted: function () {
@@ -129,49 +129,51 @@ export default {
 
   methods: {
     checkForm: function () {
-      
-      if (!this.initialdate) {
+      if (!this.reservation_time) {
         return this.makeToast(
           "danger",
           "Fecha inválida",
           "Por favor digita la fecha "
         );
       }
-      if (!this.finaldate) {
+      if (!this.final_time) {
         return this.makeToast(
           "danger",
           "Fecha inválida",
           "Por favor digita la fecha "
         );
       }
-      if (!this.newRol) {
+      if (!this.vehicle_type) {
         return this.makeToast(
           "danger",
           "Tipo de vehiculo inválido",
           "Por favor vehiculo válido"
         );
       }
-      
-      return this.register();
+
+      return this.reserva();
     },
 
-    register: function () {
-      let ap_user_id, ap_token;
-
+    reserva: function () {
+      let ap_user_id, ap_token, ap_parking_id;
+    
       if (
         sessionStorage.getItem("ap_user_id") &&
-        sessionStorage.getItem("ap_token")
+        sessionStorage.getItem("ap_token") &&
+        sessionStorage.getItem("ap_parking_id")
       ) {
         ap_user_id = sessionStorage.getItem("ap_user_id");
         ap_token = sessionStorage.getItem("ap_token");
+        ap_parking_id = sessionStorage.getItem("ap_parking_id");
 
         auth
           .reserva(
-            this.initialdate,
-            this.finaldate,
-            this.newRol,
+            this.reservation_time,
+            this.final_time,
+            this.vehicle_type,
             ap_user_id,
-            ap_token
+            ap_token,
+            ap_parking_id
           )
           .then((response) => {
             if (response && response.status == 200) {
@@ -202,6 +204,7 @@ export default {
     invalidateToken() {
       sessionStorage.removeItem("ap_user_id");
       sessionStorage.removeItem("ap_token");
+      sessionStorage.removeItem("ap_parking_id");
       auth
         .invalidate_token(this.token)
         .then((response) => {

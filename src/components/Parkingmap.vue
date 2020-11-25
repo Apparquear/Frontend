@@ -61,7 +61,8 @@
                   type="button"
                   target="_blank"
                   class="parking-routing-button"
-                  v-on:click="$router.push({ path: '/reserva' })">
+                  v-on:click="reservation(parking.parking.parkingID)"
+                >
                   Reservar
                 </b-button>
                 <br />
@@ -84,7 +85,6 @@
                   "
                   >Ruta a parqueadero
                 </b-button>
-                    
               </b-card>
             </l-popup>
 
@@ -145,6 +145,10 @@ export default {
     };
   },
   methods: {
+    reservation(ap_parking_id) {
+      sessionStorage.setItem("ap_parking_id", ap_parking_id);
+      this.$router.push({ path: "/reserva" });
+    },
     zoomUpdated(zoom) {
       this.zoom = zoom;
     },
