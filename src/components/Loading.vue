@@ -6,7 +6,7 @@
           <h3>Cargando...</h3>
         </div>
         <div class="text-center justify-content-center">
-          <b-spinner type="grow"></b-spinner>
+          <b-spinner></b-spinner>
         </div>
       </b-col>
     </b-row>

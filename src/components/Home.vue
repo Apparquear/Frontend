@@ -6,21 +6,34 @@
     <div v-if="authenticated">
       <NavBar> </NavBar>
       <b-jumbotron class="max-height">
-        <template v-slot:header>Apparquear</template>
+        <b-card
+          class="head-card"
+          style="border : none!important; pading: 0; "
+        >        
+          <br/><h3 class="heading"><b>¿Buscas un <br/>parqueadero?</b></h3>
 
-        <template v-slot:lead>
-          Bienvenido a Apparquear
-        </template>
+          <br class="my-4"/>
 
-        <hr class="my-4" />
+          <p><b>Nosotros lo encontramos por ti</b></p>
+          <div class="buttons">
+            <b-button href="#" class="button-primary"
+            size="md"                        
+            :to="'parkingmap'">Encontrar parqueadero</b-button>
+         
+            <b-button href="#" class="button-secondary"
+            size="md"
+            :to="'register'"
+            >Registrar parqueadero</b-button>
 
-        <p>
-          ¿Buscas un parqueadero? Nosotros lo buscamos por ti.
-        </p>
-
-        <b-button href="#" class="button-primary">Botón primario</b-button>
-        <b-button href="#" class="button-secondary">Botón secundario</b-button>
+            <b-button href="#" type="button" 
+            class="btn btn-light"
+            size="md"
+            :to="'register'"
+            >Mis parqueaderos</b-button>         
+          </div>          
+        </b-card>
       </b-jumbotron>
+  
       <Footer> </Footer>
     </div>
   </div>
@@ -101,15 +114,30 @@ export default {
 </script>
 
 <style scoped>
+
+.btn btn-light{
+  margin: 10px;
+}
+
+.buttons{
+  margin-top: 150px;
+}
+
+.heading{
+  color:black
+}
+
 .button-primary {
-  background-color: #4a051c;
-  border-color: #4a051c;
+  margin: 10px;
+  background-color: #000000;
+  border-color: #000000;
   color: #f6f7eb;
 }
 .button-secondary {
-  background-color: #1a936f;
-  border-color: #1a936f;
-  color: #f6f7eb;
+  margin: 10px;
+  background-color: #adadad;
+  border-color: #adadad;
+  color: #111110;
 }
 .max-height {
   height: 100%;

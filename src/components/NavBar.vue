@@ -76,15 +76,15 @@ export default {
 
 <style scoped>
 .button-primary {
-  background-color: #4a051c;
-  border-color: #4a051c;
-  color: #f6f7eb;
+  background-color: #adadad;
+  border-color: #adadad;
+  color: #111110;
 }
 .link {
   color: #004e64;
 }
 .navbar {
-  background-color: #004e64;
+  background-color: #6d6f75;
   color: #f6f7eb;
 }
 </style>
