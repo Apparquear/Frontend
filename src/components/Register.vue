@@ -67,7 +67,8 @@
           >Registrarme</b-button
         >
       </b-form>
-      ¿Ya tienes una cuenta? <router-link :to="'login'">Ingresa aquí</router-link>
+      ¿Ya tienes una cuenta?
+      <router-link :to="'login'">Ingresa aquí</router-link>
     </b-container>
   </div>
 </template>
@@ -81,10 +82,10 @@ export default {
     email: "",
     age: "",
     password: "",
-    password_repeat: ""
+    password_repeat: "",
   }),
   methods: {
-    checkForm: function() {
+    checkForm: function () {
       let regexName = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
       let regexEmail = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
       // Validaciones
@@ -167,24 +168,30 @@ export default {
       }
       return this.register();
     },
-    register: function() {
+    register: function () {
       auth
-        .register(
-          this.name,
-          this.password,
-          this.email.toLowerCase(),
-          this.age
-        )
-        .then(response => {
-          if(response && response.status == 200){
-            this.makeToast("success", "Registro completado", "Has completado tu registro exitosamente, redirigiendo...");
-            setTimeout(function(){
-              this.$router.push({ path: '/login' });
-            }.bind(this),1000);
+        .register(this.name, this.password, this.email.toLowerCase(), this.age)
+        .then((response) => {
+          if (response && response.status == 200) {
+            this.makeToast(
+              "success",
+              "Registro completado",
+              "Has completado tu registro exitosamente, redirigiendo..."
+            );
+            setTimeout(
+              function () {
+                this.$router.push({ path: "/login" });
+              }.bind(this),
+              1000
+            );
           }
         })
-        .catch(error => {
-          this.makeToast("danger", "Registro fallido", error.response.data.message);
+        .catch((error) => {
+          this.makeToast(
+            "danger",
+            "Registro fallido",
+            error.response.data.message
+          );
         });
     },
     makeToast(variant = null, tittle, text) {
@@ -193,10 +200,10 @@ export default {
         title: tittle,
         variant: variant,
         solid: true,
-        appendToast: true
+        appendToast: true,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
