@@ -5,55 +5,97 @@
     </div>
     <div v-if="authenticated">
       <NavBar> </NavBar>
+      <div class="m-0 p-0" style="height: 86vh; overflow-y: scroll">
+        <!-- <b-col cols="3" class="m-0 p-0">
+          <b-form class="form" @submit="checkForm" id="form">
+            <label class="title2">Fecha de Entrada</label>
+            <flat-pickr
+              v-model="reservation_time"
+              :config="config"
+              class="form-control"
+              name="reservation_time"
+            >
+            </flat-pickr>
 
-      <b-container class="disp">
-        <b-row>
-          <b-col cols="6" md="4">
-            <h1 class="title"><b>Reservar bahia</b></h1>
-            <b-form class="form" @submit="checkForm" id="form">
-              <label class="title2">Fecha de Entrada</label>
-              <flat-pickr
-                v-model="reservation_time"
-                :config="config"
-                class="form-control"
-                name="reservation_time"
-              >
-              </flat-pickr>
+            <label class="title2">Fecha de Salida</label>
 
-              <label class="title2">Fecha de Salida</label>
+            <flat-pickr
+              v-model="final_time"
+              :config="config"
+              class="form-control"
+              name="final_time"
+            >
+            </flat-pickr>
 
-              <flat-pickr
-                v-model="final_time"
-                :config="config"
-                class="form-control"
-                name="final_time"
+            <label class="title2">Tipo de vehiculo</label>
+            <select
+              v-model="vehicle_type"
+              label="Seleccione el rol"
+              class="browser-default custom-select"
+            >
+              <option value="carros">Carros</option>
+              <option value="motos">Motos</option>
+              <option value="cicla">Cicla</option>
+            </select>
+            <br />
+            <b-button size="lg" block class="button-primary" type="submit"
+              >Reservar</b-button
+            >
+          </b-form>
+        </b-col> -->
+        <kalendar :configuration="calendar_settings" :events.sync="events">
+          <!-- CREATED CARD SLOT -->
+          <div
+            slot="created-card"
+            slot-scope="{ event_information }"
+            class="h-100"
+            align-v="center"
+          >
+            <h4><u>Reserva</u></h4>
+            <br />
+            <h5>
+              {{ event_information.start_time | formatToHours }} <br />
+              to <br />
+              {{ event_information.end_time | formatToHours }}
+            </h5>
+          </div>
+          <!-- CREATING CARD SLOT -->
+          <div slot="creating-card" slot-scope="{ event_information }">
+            <h4 style="text-align: center;">
+              Nueva reserva
+            </h4>
+            <br />
+            <span>
+              {{ event_information.start_time | formatToHours }} <br />
+              to <br />
+              {{ event_information.end_time | formatToHours }}
+            </span>
+          </div>
+          <!-- POPUP CARD SLOT -->
+          <div
+            slot="popup-form"
+            slot-scope="{ popup_information }"
+            style="display: flex; flex-direction: column;"
+          >
+            <h4 style="margin-bottom: 10px">
+              Nueva reserva
+            </h4>
+            <b-row class="m-0" style="inline-size: max-content">
+              <b-button class="m-1" variant="info" @click="closePopups()">
+                Cancelar
+              </b-button>
+              <b-button
+                class="m-1"
+                variant="info"
+                @click="addAppointment(popup_information)"
               >
-              </flat-pickr>
-
-              <label class="title2">Tipo de vehiculo</label>
-              <select
-                v-model="vehicle_type"
-                label="Seleccione el rol"
-                class="browser-default custom-select"
-              >
-                <option value="carros">Carros</option>
-                <option value="motos">Motos</option>
-                <option value="cicla">Cicla</option>
-              </select>
-              <br />
-              <b-button size="lg" block class="button-primary" type="submit"
-                >Reservar</b-button
-              >
-            </b-form>
-          </b-col>
-          <b-col cols="12" md="8">
-            <kalendar
-              :configuration="calendar_settings"
-              :events.sync="events"
-            />
-          </b-col>
-        </b-row>
-      </b-container>
+                Guardar
+              </b-button>
+            </b-row>
+          </div>
+        </kalendar>
+        <!-- <kalendar :configuration="calendar_settings" :events.sync="events" /> -->
+      </div>
 
       <Footer> </Footer>
     </div>
@@ -69,6 +111,42 @@ import "flatpickr/dist/flatpickr.css";
 import auth from "../logic/auth";
 
 import { Kalendar } from "kalendar-vue";
+import { DateTime } from "luxon";
+import Vue from "vue";
+const _existing_events = [
+  {
+    from: "2020-12-04T04:00:00.300Z",
+    to: "2020-12-04T04:10:00.300Z",
+    data: {
+      title: "Right now",
+      description: "Lorem ipsum"
+    }
+  },
+  {
+    from: "2020-12-11T10:22:00-07:00",
+    to: "2020-12-31T11:55:00-07:00",
+    data: {
+      title: "Truth",
+      description: "Look."
+    }
+  },
+  {
+    from: "2020-12-11T10:22:00-07:00",
+    to: "2020-12-31T11:20:00-07:00",
+    data: {
+      title: "Side",
+      description: "Look.2"
+    }
+  },
+  {
+    from: "2020-12-11T10:22:00Z",
+    to: "2020-12-31T11:20:00Z",
+    data: {
+      title: "Europe",
+      description: "Final Countdown"
+    }
+  }
+];
 export default {
   name: "Reserva",
   data() {
@@ -81,37 +159,27 @@ export default {
         altFormat: "F j, Y",
         altInput: true,
         enableTime: true,
-        dateFormat: "Y-d-mTH:i:S",
+        dateFormat: "Y-d-mTH:i:S"
       },
 
       options: ["carros", "ciclas", "motos"],
 
+      events: _existing_events,
       calendar_settings: {
-        style: "material_design",
         view_type: "week",
         cell_height: 10,
         scrollToNow: true,
+        // current_day: new Date().toISOString(),
         start_day: new Date().toISOString(),
+        military_time: false,
         read_only: false,
         day_starts_at: 0,
         day_ends_at: 24,
-        overlap: true,
-        hide_dates: ["2019-10-31"], // Spooky
+        overlap: false,
         hide_days: [],
-        past_event_creation: true,
+        past_event_creation: false
       },
-      events: [
-        {
-          from: "2020-12-05T18:00:00",
-          to: "2020-12-05T19:00:00",
-          data: "Side",
-        },
-        {
-          from: "2020-12-05T19:00:00",
-          to: "2020-12-05T21:00:00",
-          data: "Europe",
-        },
-      ],
+      new_appointment: {}
     };
   },
   components: {
@@ -119,10 +187,15 @@ export default {
     Footer,
     flatPickr,
     Loading,
-    Kalendar,
+    Kalendar
   },
-
-  mounted: function () {
+  created: function() {
+    Vue.filter("formatToHours", (value, how) => {
+      let dt = DateTime.fromISO(value);
+      return dt.toLocaleString(DateTime.TIME_24_SIMPLE);
+    });
+  },
+  mounted: function() {
     let $vm = this;
 
     function invalidateToken() {
@@ -130,12 +203,12 @@ export default {
       sessionStorage.removeItem("ap_token");
       auth
         .invalidate_token(token)
-        .then((response) => {
+        .then(response => {
           if (response && response.status == 200) {
             console.log("token invalidado");
           }
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     }
@@ -160,13 +233,13 @@ export default {
     function authenticate() {
       getToken();
     }
-    setTimeout(function () {
+    setTimeout(function() {
       authenticate();
     }, 1000);
   },
 
   methods: {
-    checkForm: function () {
+    checkForm: function() {
       if (!this.reservation_time) {
         return this.makeToast(
           "danger",
@@ -192,7 +265,7 @@ export default {
       return this.reserva();
     },
 
-    reserva: function () {
+    reserva: function() {
       let ap_user_id, ap_token, ap_parking_id;
 
       if (
@@ -218,7 +291,7 @@ export default {
             ap_parking_id
           )
 
-          .then((response) => {
+          .then(response => {
             if (response && response.status == 200) {
               this.makeToast(
                 "success",
@@ -226,14 +299,14 @@ export default {
                 "Has completado la reserva exitosamente"
               );
               setTimeout(
-                function () {
+                function() {
                   this.$router.push({ path: "/home" });
                 }.bind(this),
                 1000
               );
             }
           })
-          .catch((error) => {
+          .catch(error => {
             this.makeToast(
               "danger",
               "Reserva fallida",
@@ -250,12 +323,12 @@ export default {
       sessionStorage.removeItem("ap_parking_id");
       auth
         .invalidate_token(this.token)
-        .then((response) => {
+        .then(response => {
           if (response && response.status == 200) {
             console.log("token invalidado");
           }
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     },
@@ -265,21 +338,43 @@ export default {
       }
       this.$router.push("login");
     },
+    addAppointment(popup_info) {
+      let payload = {
+        data: {
+          title: this.new_appointment.title,
+          description: this.new_appointment.description
+        },
+        from: popup_info.start_time,
+        to: popup_info.end_time
+      };
+      this.$kalendar.addNewEvent(payload);
+      this.$kalendar.closePopups();
+      this.clearFormData();
+    },
+    closePopups() {
+      this.$kalendar.closePopups();
+    },
+    clearFormData() {
+      this.new_appointment = {
+        description: null,
+        title: null
+      };
+    },
     makeToast(variant = null, tittle, text) {
       this.$bvToast.toast(text, {
         toaster: "b-toaster-bottom-right",
         title: tittle,
         variant: variant,
         solid: true,
-        appendToast: true,
+        appendToast: true
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-<style >
+<style>
 .button-primary {
   background-color: #4a051c;
   border-color: #4a051c;
@@ -309,5 +404,9 @@ export default {
   max-width: 540px;
   padding: 40px;
   box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
+}
+.created-event {
+  align-self: center;
+  width: 100% !important;
 }
 </style>
