@@ -5,45 +5,56 @@
     </div>
     <div v-if="authenticated">
       <NavBar> </NavBar>
+
       <b-container class="disp">
-        <h1 class="title"><b>Reservar bahia</b></h1>
-        <b-form class="form" @submit="checkForm" id="form">
-          <label class="title2">Fecha de Entrada</label>
-          <flat-pickr
-            v-model="reservation_time"
-            :config="config"
-            class="form-control"
-            name="reservation_time"
-          >
-          </flat-pickr>
+        <b-row>
+          <b-col cols="6" md="4">
+            <h1 class="title"><b>Reservar bahia</b></h1>
+            <b-form class="form" @submit="checkForm" id="form">
+              <label class="title2">Fecha de Entrada</label>
+              <flat-pickr
+                v-model="reservation_time"
+                :config="config"
+                class="form-control"
+                name="reservation_time"
+              >
+              </flat-pickr>
 
-          <label class="title2">Fecha de Salida</label>
+              <label class="title2">Fecha de Salida</label>
 
-          <flat-pickr
-            v-model="final_time"
-            :config="config"
-            class="form-control"
-            name="final_time"
-          >
-          </flat-pickr>
+              <flat-pickr
+                v-model="final_time"
+                :config="config"
+                class="form-control"
+                name="final_time"
+              >
+              </flat-pickr>
 
-          <label class="title2">Tipo de vehiculo</label>
-          <select
-            v-model="vehicle_type"
-            label="Seleccione el rol"
-            class="browser-default custom-select"
-          >
-            <option value="carros">Carros</option>
-            <option value="motos">Motos</option>
-            <option value="cicla">Cicla</option>
-          </select>
-          <br />
-          <b-button size="lg" block class="button-primary" type="submit"
-            >Reservar</b-button
-          >
-        </b-form>
+              <label class="title2">Tipo de vehiculo</label>
+              <select
+                v-model="vehicle_type"
+                label="Seleccione el rol"
+                class="browser-default custom-select"
+              >
+                <option value="carros">Carros</option>
+                <option value="motos">Motos</option>
+                <option value="cicla">Cicla</option>
+              </select>
+              <br />
+              <b-button size="lg" block class="button-primary" type="submit"
+                >Reservar</b-button
+              >
+            </b-form>
+          </b-col>
+          <b-col cols="12" md="8">
+            <kalendar
+              :configuration="calendar_settings"
+              :events.sync="events"
+            />
+          </b-col>
+        </b-row>
       </b-container>
-      <kalendar :configuration="calendar_settings" :events.sync="events" />
+
       <Footer> </Footer>
     </div>
   </div>
@@ -78,7 +89,7 @@ export default {
       calendar_settings: {
         style: "material_design",
         view_type: "week",
-        cell_height: 20,
+        cell_height: 10,
         scrollToNow: true,
         start_day: new Date().toISOString(),
         read_only: false,
@@ -86,19 +97,19 @@ export default {
         day_ends_at: 24,
         overlap: true,
         hide_dates: ["2019-10-31"], // Spooky
-        hide_days: [7],
+        hide_days: [],
         past_event_creation: true,
       },
       events: [
         {
-          from: "2020-03-18T18:00:00Z",
-          to: "2020-03-18T19:00:00Z",
-          data: "Event 1",
+          from: "2020-12-05T18:00:00",
+          to: "2020-12-05T19:00:00",
+          data: "Side",
         },
         {
-          from: "2020-03-18T19:00:00Z",
-          to: "2020-03-18T21:00:00Z",
-          data: "Olive & Friends",
+          from: "2020-12-05T19:00:00",
+          to: "2020-12-05T21:00:00",
+          data: "Europe",
         },
       ],
     };
