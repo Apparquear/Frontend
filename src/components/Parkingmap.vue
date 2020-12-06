@@ -6,7 +6,7 @@
     <div v-if="authenticated">
       <NavBar> </NavBar>
       <b-row style="width: 100vw" class="m-0">
-        <b-col cols="3" class="p-0" style="height: 93vh">
+        <b-col cols="3" class="p-0 backgroundImg">
           <b-col cols="12" class="p-0 m-1" style="height: auto">
             <b-form
               inline
@@ -14,7 +14,7 @@
               style="align-items: center; justify-content: center;"
             >
               <h4 class="m-0 w-100">
-                <b-badge class="w-75" variant="info"
+                <b-badge class="w-75 background-filter"
                   >Filtrar:
                   <b-button-group class="m-2">
                     <b-button
@@ -46,7 +46,7 @@
               style="align-items: center; justify-content: center;"
             >
               <h4 class="m-0 w-100">
-                <b-badge class="w-75" variant="info"
+                <b-badge class="w-75 background-filter"
                   >Ordenar por:
                   <b-form-select
                     id="inline-form-custom-select-pref"
@@ -259,7 +259,7 @@
               <l-marker :latLng="[coordinates.lat, coordinates.lng]">
                 <l-popup> Tu ubicación </l-popup>
                 <l-icon>
-                  <img src="../assets/marker.png"/>
+                  <img src="../assets/marker.png" />
                 </l-icon>
               </l-marker>
             </l-map>
@@ -512,13 +512,24 @@ export default {
 </script>
 
 <style scoped>
-  .parking-routing-button{
-    background-color: #141414;
-    border-color: #141414;
-    color: #f6f7eb;
-  }
-
-  .b-card {
-    background-color: #f6f7eb;
-  }
+.parking-routing-button {
+  background-color: #141414;
+  border-color: #141414;
+  color: #f6f7eb;
+}
+.b-card {
+  background-color: #f6f7eb;
+}
+.backgroundImg {
+  background-image: url("../assets/Home_BG.png");
+  height: 93vh;
+}
+.card-header{
+  font-weight: bold;
+  background-color: #504e47!important;
+  color: white;
+}
+.background-filter{
+  background-color: #504e47!important;
+}
 </style>

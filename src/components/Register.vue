@@ -4,7 +4,12 @@
       <h1 class="title"><b>Regístrate en Apparquear</b></h1>
       <b-form class="form" @submit="checkForm" id="form">
         <!-- Nombre -->
-        <b-form-group class="light-text" label="Nombre" label-for="name">
+        <b-form-group
+          class="light-text"
+          label-class="font-weight-bold"
+          label="Nombre"
+          label-for="name"
+        >
           <b-input
             type="text"
             maxlength="100"
@@ -14,7 +19,12 @@
           ></b-input
         ></b-form-group>
         <!-- Edad -->
-        <b-form-group class="light-text" label="Edad" label-for="age">
+        <b-form-group
+          class="light-text"
+          label-class="font-weight-bold"
+          label="Edad"
+          label-for="age"
+        >
           <b-input
             type="number"
             id="age"
@@ -23,7 +33,12 @@
           ></b-input
         ></b-form-group>
         <!-- Correo -->
-        <b-form-group class="light-text" label="Email" label-for="email">
+        <b-form-group
+          class="light-text"
+          label-class="font-weight-bold"
+          label="Email"
+          label-for="email"
+        >
           <b-input
             type="email"
             id="email"
@@ -35,6 +50,7 @@
         <b-form-group
           class="light-text"
           label="Contraseña"
+          label-class="font-weight-bold"
           label-for="password"
           description="Tu contraseña debe contener al menos 8 caracteres."
         >
@@ -51,6 +67,7 @@
         <b-form-group
           class="light-text"
           label="Repite la contraseña"
+          label-class="font-weight-bold"
           label-for="password_repeat"
         >
           <b-input
@@ -67,7 +84,8 @@
           >Registrarme</b-button
         >
       </b-form>
-      ¿Ya tienes una cuenta? <router-link :to="'login'">Ingresa aquí</router-link>
+      ¿Ya tienes una cuenta?
+      <router-link :to="'login'">Ingresa aquí</router-link>
     </b-container>
   </div>
 </template>
@@ -169,22 +187,28 @@ export default {
     },
     register: function() {
       auth
-        .register(
-          this.name,
-          this.password,
-          this.email.toLowerCase(),
-          this.age
-        )
+        .register(this.name, this.password, this.email.toLowerCase(), this.age)
         .then(response => {
-          if(response && response.status == 200){
-            this.makeToast("success", "Registro completado", "Has completado tu registro exitosamente, redirigiendo...");
-            setTimeout(function(){
-              this.$router.push({ path: '/login' });
-            }.bind(this),1000);
+          if (response && response.status == 200) {
+            this.makeToast(
+              "success",
+              "Registro completado",
+              "Has completado tu registro exitosamente, redirigiendo..."
+            );
+            setTimeout(
+              function() {
+                this.$router.push({ path: "/login" });
+              }.bind(this),
+              1000
+            );
           }
         })
         .catch(error => {
-          this.makeToast("danger", "Registro fallido", error.response.data.message);
+          this.makeToast(
+            "danger",
+            "Registro fallido",
+            error.response.data.message
+          );
         });
     },
     makeToast(variant = null, tittle, text) {

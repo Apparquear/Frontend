@@ -23,10 +23,9 @@ export default {
 .body {
   background-color: #dce1de;
   color: #141414;
-  height: 100vh;
+  height: 100vh!important;
 }
 .backgroundImg {
   background-image: url("../assets/Home_BG.png");
-  height: 100vh;
 }
 </style>
