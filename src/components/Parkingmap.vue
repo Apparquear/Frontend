@@ -61,7 +61,7 @@
                   type="button"
                   target="_blank"
                   class="parking-routing-button"
-                  v-on:click="reservation(parking.parking.parkingID)"
+                  v-on:click="reservation(parking.parking)"
                 >
                   Reservar
                 </b-button>
@@ -145,8 +145,11 @@ export default {
     };
   },
   methods: {
-    reservation(ap_parking_id) {
-      sessionStorage.setItem("ap_parking_id", ap_parking_id);
+    reservation(parking) {
+      sessionStorage.setItem("ap_parking_name", parking.parking_name);
+      sessionStorage.setItem("ap_parking_id", parking.parkingID);
+      sessionStorage.setItem("ap_parking_opening", parking.opening_time);
+      sessionStorage.setItem("ap_parking_closing", parking.closing_time);
       this.$router.push({ path: "/reserva" });
     },
     zoomUpdated(zoom) {

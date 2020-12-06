@@ -5,7 +5,8 @@
     </div>
     <div v-if="authenticated">
       <NavBar> </NavBar>
-      <div class="m-0 p-0" style="height: 86vh; overflow-y: scroll">
+      <h3>Horario de disponibilidad para: {{parking_name}}</h3>
+      <div class="m-0 p-0" style="height: 83vh; overflow-y: scroll">
         <!-- <b-col cols="3" class="m-0 p-0">
           <b-form class="form" @submit="checkForm" id="form">
             <label class="title2">Fecha de Entrada</label>
@@ -147,6 +148,29 @@ const _existing_events = [
     }
   }
 ];
+let today = new Date();
+function getCurrentDay() {
+  today.setHours(0);
+  today.setMinutes(0);
+  today.setSeconds(0);
+  today.setMilliseconds(0);
+  today.setDate(today.getUTCDate() - 1);
+  return today.toISOString();
+}
+// change the dates on _existing events to this week
+const startDate = new Date(_existing_events[0].from).getUTCDate();
+function makeNow(dateString) {
+  const d = new Date(dateString);
+  d.setYear(today.getUTCFullYear());
+  d.setMonth(today.getUTCMonth());
+  d.setDate(today.getUTCDate() + (d.getUTCDate() - startDate));
+  return d.toISOString();
+}
+const existing_events = _existing_events.map(ev => ({
+  ...ev,
+  from: makeNow(ev.from),
+  to: makeNow(ev.to)
+}));
 export default {
   name: "Reserva",
   data() {
@@ -161,25 +185,24 @@ export default {
         enableTime: true,
         dateFormat: "Y-d-mTH:i:S"
       },
-
       options: ["carros", "ciclas", "motos"],
-
       events: _existing_events,
       calendar_settings: {
         view_type: "week",
         cell_height: 10,
         scrollToNow: true,
         // current_day: new Date().toISOString(),
-        start_day: new Date().toISOString(),
+        start_day: getCurrentDay(),
         military_time: false,
         read_only: false,
-        day_starts_at: 0,
-        day_ends_at: 24,
+        day_starts_at: DateTime.fromISO(sessionStorage.getItem("ap_parking_opening")).hour,
+        day_ends_at: DateTime.fromISO(sessionStorage.getItem("ap_parking_closing")).hour,
         overlap: false,
         hide_days: [],
         past_event_creation: false
       },
-      new_appointment: {}
+      new_appointment: {},
+      parking_name: sessionStorage.getItem("ap_parking_name"),
     };
   },
   components: {
@@ -194,6 +217,7 @@ export default {
       let dt = DateTime.fromISO(value);
       return dt.toLocaleString(DateTime.TIME_24_SIMPLE);
     });
+
   },
   mounted: function() {
     let $vm = this;
