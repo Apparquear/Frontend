@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" class="navbar">
+    <b-navbar toggleable="lg" type="dark" class="navbar sticky-top">
       <b-navbar-brand :to="'home'">Apparquear</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -8,20 +8,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-button
-            size="md"
-            class="my-1 mx-2 mx-sm-1 button-primary"
-            type="button"
-            :to="'parkingmap'"
-            >Encuentra parqueadero</b-button
-          >
-          <b-button
-            size="md"
-            class="my-1 mx-2 mx-sm-1 button-primary"
-            type="button"
-            :to="'parking_register'"
-            >Registrar parqueadero</b-button
-          >
+          
           <b-nav-item-dropdown right style="align-self: center">
             <!-- Using 'button-content' slot -->
             <template v-slot:button-content>
@@ -84,7 +71,7 @@ export default {
   color: #004e64;
 }
 .navbar {
-  background-color: #FCE44E;
+  background-color: #FECC1D;
   color: #000000;
 }
 .navbar-brand{

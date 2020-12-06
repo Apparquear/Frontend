@@ -5,26 +5,31 @@
     </div>
     <div v-if="authenticated">
       <NavBar> </NavBar>
-      <b-jumbotron class="max-height">
-        <br/><h1 class="heading">¿Buscas un <br/>parqueadero?</h1>
-        <p>Nosotros lo encontramos por ti</p>
-         
+     
+      <b-jumbotron class="max-height backgroundImg m-0">
+        
+        <b-container class="text-left ml-1">
+          <br/><h1 class="heading">¿Parqueadero?</h1>
+          <h3>Lo encontramos por tí.</h3>
+        </b-container>
+
         <div class="buttons">
-          <b-button href="#" class="button-primary"
+          <b-button href="#" class="button-primary rounded-pill"
           size="md"                        
           :to="'parkingmap'">Encontrar parqueadero</b-button>
-         
-          <b-button href="#" class="button-secondary"
+          <br/>
+          <b-button href="#" class="button-secondary rounded-pill"
           size="md"
           :to="'register'"
           >Registrar parqueadero</b-button>
-
+          <br/>        
           <b-button href="#" type="button" 
           class="third-btn"
           size="md"
           :to="'register'"
           >Mis parqueaderos</b-button>                 
-        </div>         
+        </div>
+
       </b-jumbotron>
       <Footer> </Footer>
     </div>
@@ -61,6 +66,8 @@ export default {
       });
     }
   },
+
+
   mounted: function() {
     let $vm = this;
 
@@ -109,7 +116,8 @@ export default {
 <style scoped>
 
 .buttons{
-  margin-top: 30%;
+  margin-top: 20%;
+  text-align: right;
 }
 .heading{
   color:#111110
@@ -134,6 +142,18 @@ export default {
 }
 .max-height {
   height: 100%;
-  background-color: #FCE44E;
+  background-color: rgba(0,0,0,0);
 }
+
+.backgroundImg {
+  background-image: url("../assets/Home_BG.png");
+}
+.ml-1{
+  margin-left: ($spacer * .25) !important;
+}
+
+.mr-1 {
+  margin-right: ($spacer * .25) !important;
+}
+
 </style>
