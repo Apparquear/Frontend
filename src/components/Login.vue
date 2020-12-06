@@ -81,7 +81,7 @@ export default {
     },
     login() {
       auth
-        .login(this.email, this.password)
+        .login(this.email.toLowerCase(), this.password)
         .then(response => {
           if (response && response.data) {
             if (!response.data.valid) {
@@ -153,10 +153,10 @@ export default {
   flex-direction: column;
   background: #f6f7eb;
   border-radius: 10px;
+  max-width: 540px;
   padding: 40px;
   box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
 }
-
 .backgroundImg {
   background-image: url("../assets/Home_BG.png");
   height: 100vh;

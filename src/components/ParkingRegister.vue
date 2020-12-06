@@ -34,7 +34,7 @@
               <div style="height: 100px overflow: auto;">
                 <p>
                   Arrastra el mapa hasta que tu parqueadero sea visible y
-                  coincida con el marcador azul ubicado en el centro
+                  coincida con el marcador ubicado en el centro
                 </p>
               </div>
               <l-map
@@ -270,8 +270,7 @@ export default {
       this.showParagraph = !this.showParagraph;
     },
     checkForm: function() {
-      let regexName = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
-
+      let regexName = /^[0-9a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[0-9a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[0-9a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
       // Validaciones
       if (!this.parking_name) {
         return this.makeToast(
@@ -525,6 +524,7 @@ export default {
   flex-direction: column;
   background: #f6f7eb;
   border-radius: 10px;
+  max-width: 540px;
   padding: 40px;
   box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
   text-align: justify;
