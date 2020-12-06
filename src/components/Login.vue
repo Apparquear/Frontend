@@ -63,7 +63,7 @@ export default {
           "Por favor digita tu contraseña"
         );
       }
-      if (!regexEmail.test(this.email)) {
+      if (!regexEmail.test(this.email.toLowerCase())) {
         return this.makeToast(
           "warning",
           "Email inválido",
@@ -159,6 +159,6 @@ export default {
 
 .backgroundImg {
   background-image: url("../assets/Home_BG.png");
-  height: 91vh;
+  height: 100vh;
 }
 </style>

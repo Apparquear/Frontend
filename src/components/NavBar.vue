@@ -71,13 +71,16 @@ export default {
   color: #004e64;
 }
 .navbar {
-  background-color: #FECC1D;
+  background-color: #504e47;
   color: #000000;
 }
 .navbar-brand{
-  color:#000000;
+  color:white;
 }
 .collapse {
   color:#000000;
+}
+.nav-link{
+  color: white;
 }
 </style>

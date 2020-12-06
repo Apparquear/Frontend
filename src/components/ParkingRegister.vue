@@ -510,18 +510,15 @@ export default {
 .parkingRegister {
   padding: 2rem;
 }
-
 .button-primary {
   background-color: #141414;
   color: #f6f7eb;
 }
-
 .title {
   text-align: center;
   font-size: 2.5em;
   color: #141414;
 }
-
 .form {
   margin: 3rem auto;
   display: flex;
@@ -531,19 +528,18 @@ export default {
   padding: 40px;
   box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
   text-align: justify;
-
 }
-
 .light-text {
   color: #141414 !important;
 }
-
 .backgroundImg {
   background-image: url("../assets/Home_BG.png");
   height: 150vh;
 }
-
 .map {
   border-color: #141414;
+}
+.label {
+  font-weight: bold;
 }
 </style>
