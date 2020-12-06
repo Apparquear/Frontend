@@ -16,7 +16,7 @@
               <h4 class="m-0 w-100">
                 <b-badge class="w-75 background-filter light-text"
                   >Filtrar:
-                  <b-button-group class="m-2">
+                  <b-button-group>
                     <b-button
                       :ref="'test'"
                       variant="warning"
@@ -534,5 +534,6 @@ export default {
 }
 .badge{
   font-weight: lighter;
+  padding: 1vh;
 }
 </style>
