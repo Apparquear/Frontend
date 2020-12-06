@@ -9,7 +9,7 @@
       <b-jumbotron class="max-height backgroundImg m-0">
         
         <b-container class="text-left ml-1">
-          <br/><h1 class="heading"><b>¿Parqueadero?</b></h1>
+          <br/><h1 class="heading"><strong>¿Parqueadero?</strong></h1>
           <h3>Lo encontramos por tí.</h3>
         </b-container>
 
