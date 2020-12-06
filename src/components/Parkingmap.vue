@@ -20,8 +20,8 @@
             :latLng="[parking.latitude, parking.longitude]"
             style="max-width: 20rem;"
           >
-            <l-popup>
-              <b-card
+            <l-popup class="b-card">
+              <b-card 
                 :title="parking.parking.parking_name"
                 style="border : none!important; pading: 0; "
               >                                
@@ -193,8 +193,12 @@ export default {
 
 <style scoped>
   .parking-routing-button{
-    background-color: #4a051c;
-    border-color: #4a051c;
+    background-color: #141414;
+    border-color: #141414;
     color: #f6f7eb;
+  }
+
+  .b-card {
+    background-color: #f6f7eb;
   }
 </style>

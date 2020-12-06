@@ -20,13 +20,13 @@
           <br/>
           <b-button href="#" class="button-secondary rounded-pill"
           size="md"
-          :to="'register'"
+          :to="'parking_register'"
           >Registrar parqueadero</b-button>
           <br/>        
           <b-button href="#" type="button" 
           class="third-btn"
           size="md"
-          :to="'register'"
+          :to="'Register'"
           >Mis parqueaderos</b-button>                 
         </div>
 
@@ -147,6 +147,7 @@ export default {
 
 .backgroundImg {
   background-image: url("../assets/Home_BG.png");
+  height: 91vh;
 }
 .ml-1{
   margin-left: ($spacer * .25) !important;

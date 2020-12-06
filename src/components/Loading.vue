@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid class="body">
+  <b-container fluid class="body backgroundImg">
     <b-row align-v="center" class="h-100">
       <b-col>
         <div class="text-center justify-content-center">
@@ -22,7 +22,11 @@ export default {
 <style scoped>
 .body {
   background-color: #dce1de;
-  color: #004e64;
+  color: #141414;
+  height: 100vh;
+}
+.backgroundImg {
+  background-image: url("../assets/Home_BG.png");
   height: 100vh;
 }
 </style>

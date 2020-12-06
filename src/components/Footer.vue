@@ -1,7 +1,7 @@
 <template>
   <div>
     <footer class="footer">
-      <p>&copy; Desarrollado por ApparquearTeam.</p>
+      <p class="m-0">&copy; Desarrollado por ApparquearTeam.</p>
     </footer>
   </div>
 </template>
