@@ -163,8 +163,7 @@
                       ></b-icon-clock>
                       :
                     </b>
-                    {{ parking.parking.opening_time }}
-                    <br />
+                    {{ parking.parking.opening_time }}&emsp;
                     <b
                       ><b-icon-clock-fill
                         style="width: 15px; height: 15px"
@@ -172,83 +171,82 @@
                       : </b
                     >{{ parking.parking.closing_time }}
                     <br />
-                    <span v-if="vehycle_type == 1"
-                      ><b
-                        ><b-icon-cash
-                          style="width: 15px; height: 15px"
-                        ></b-icon-cash>
-                        Costo bici por minuto: $</b
-                      >{{ parking.parking.bike_cost_minute }}</span
-                    >
-                    <span v-if="vehycle_type == 2"
-                      ><b
-                        ><b-icon-cash
-                          style="width: 15px; height: 15px"
-                        ></b-icon-cash>
-                        Costo moto por minuto: $</b
-                      >{{ parking.parking.motorcycle_cost_minute }}</span
-                    >
-                    <span v-if="vehycle_type == 3"
-                      ><b
-                        ><b-icon-cash
-                          style="width: 15px; height: 15px"
-                        ></b-icon-cash>
-                        Costo carro por minuto: $</b
-                      >{{ parking.parking.car_cost_minute }}</span
-                    >
-                    <br />
-                    <b
-                      ><b-icon-star-half
-                        style="width: 15px; height: 15px"
-                      ></b-icon-star-half>
-                      Calificacion: </b
-                    >{{ parking.parking.score }}
+                    <b-icon-star-half
+                      style="width: 15px; height: 15px"
+                    ></b-icon-star-half>
+                    Calificacion: {{ parking.parking.score }}
                     <br />
                     <span v-if="vehycle_type == 1"
-                      ><b>Espacios disponibles a esta hora: </b
-                      >{{ parking.parking.bike_spaces_available }}</span
+                      >Espacios disponibles a esta hora:
+                      {{ parking.parking.bike_spaces_available }}</span
                     >
                     <span v-if="vehycle_type == 2"
-                      ><b>Espacios disponibles a esta hora: </b
-                      >{{ parking.parking.motorcycle_spaces_available }}</span
+                      >Espacios disponibles a esta hora:
+                      {{ parking.parking.motorcycle_spaces_available }}</span
                     >
                     <span v-if="vehycle_type == 3"
-                      ><b>Espacios disponibles a esta hora: </b
-                      >{{ parking.parking.car_spaces_available }}</span
+                      >Espacios disponibles a esta hora:
+                      {{ parking.parking.car_spaces_available }}</span
                     >
                     <span v-if="vehycle_type == 0"
-                      ><b>Espacios disponibles a esta hora: </b
-                      >{{ parking.parking.total_spaces_available }}</span
+                      >Espacios disponibles a esta hora:
+                      {{ parking.parking.total_spaces_available }}</span
                     >
-                    <br />
-                    <br />
-                    <b-button
-                      syze="sm"
-                      type="button"
-                      target="_blank"
-                      class="parking-routing-button"
-                      v-on:click="reservation(parking.parking.parkingID)"
+                    <br /><span v-if="vehycle_type == 1"
+                      ><b-icon-cash
+                        style="width: 15px; height: 15px"
+                      ></b-icon-cash>
+                      Costo bici por minuto: ${{
+                        parking.parking.bike_cost_minute
+                      }}</span
                     >
-                      Reservar
-                    </b-button>
-                    <b-button
-                      syze="sm"
-                      type="button"
-                      target="_blank"
-                      class="parking-routing-button"
-                      :href="
-                        'https://www.google.com/maps?f=d&saddr=' +
-                          coordinates.lat +
-                          ',' +
-                          coordinates.lng +
-                          '&daddr=' +
-                          parking.latitude +
-                          ',' +
-                          parking.longitude +
-                          '&dirflg=d&travelmode=driving'
-                      "
-                      >Ruta
-                    </b-button>
+                    <span v-if="vehycle_type == 2"
+                      ><b-icon-cash
+                        style="width: 15px; height: 15px"
+                      ></b-icon-cash>
+                      Costo moto por minuto: ${{
+                        parking.parking.motorcycle_cost_minute
+                      }}</span
+                    >
+                    <span v-if="vehycle_type == 3"
+                      ><b-icon-cash
+                        style="width: 15px; height: 15px"
+                      ></b-icon-cash>
+                      Costo carro por minuto: ${{
+                        parking.parking.car_cost_minute
+                      }}</span
+                    >
+                    <br>
+                    <br>
+                    <b-row class="m-0 p-0 buttons">
+                      <b-button
+                        syze="sm"
+                        type="button"
+                        target="_blank"
+                        class="parking-routing-button m-1"
+                        v-on:click="reservation(parking.parking.parkingID)"
+                      >
+                        Reservar
+                      </b-button>
+                      <b-button
+                        syze="sm"
+                        type="button"
+                        target="_blank"
+                        class="parking-routing-button m-1"
+                        :href="
+                          'https://www.google.com/maps?f=d&saddr=' +
+                            coordinates.lat +
+                            ',' +
+                            coordinates.lng +
+                            '&daddr=' +
+                            parking.latitude +
+                            ',' +
+                            parking.longitude +
+                            '&dirflg=d&travelmode=driving'
+                        "
+                        >Ruta
+                      </b-button>
+                    </b-row>
                   </b-card>
                 </l-popup>
 
@@ -513,9 +511,9 @@ export default {
 
 <style scoped>
 .parking-routing-button {
-  background-color: #141414;
-  border-color: #141414;
-  color: #f6f7eb;
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: black;
 }
 .b-card {
   background-color: #f6f7eb;
@@ -524,16 +522,28 @@ export default {
   background-image: url("../assets/Home_BG.png");
   height: 93vh;
 }
-.card-header{
+.card-header {
   font-weight: bold;
-  background-color: #504e47!important;
+  background-color: #504e47 !important;
   color: white;
 }
-.background-filter{
-  background-color: #504e47!important;
+.background-filter {
+  background-color: #504e47 !important;
 }
-.badge{
+.badge {
   font-weight: lighter;
   padding: 1vh;
+}
+.leaflet-container {
+  font: 14px/1.5 "Poppins", sans-serif;
+}
+.card-body {
+  text-align: center;
+}
+.card-title{
+  font-weight: bold;
+}
+.buttons {
+  justify-content: center;
 }
 </style>
