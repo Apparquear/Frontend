@@ -14,7 +14,7 @@
               style="align-items: center; justify-content: center;"
             >
               <h4 class="m-0 w-100">
-                <b-badge class="w-75 background-filter"
+                <b-badge class="w-75 background-filter light-text"
                   >Filtrar:
                   <b-button-group class="m-2">
                     <b-button
@@ -531,5 +531,8 @@ export default {
 }
 .background-filter{
   background-color: #504e47!important;
+}
+.badge{
+  font-weight: lighter;
 }
 </style>
