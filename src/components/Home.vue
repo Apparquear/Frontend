@@ -6,37 +6,30 @@
     <div v-if="authenticated">
       <NavBar> </NavBar>
       <b-jumbotron class="max-height">
-        <b-card
-          class="head-card"
-          style="border : none!important; pading: 0; "
-        >        
-          <br/><h3 class="heading"><b>¿Buscas un <br/>parqueadero?</b></h3>
-
-          <br class="my-4"/>
-
-          <p><b>Nosotros lo encontramos por ti</b></p>
-          <div class="buttons">
-            <b-button href="#" class="button-primary"
-            size="md"                        
-            :to="'parkingmap'">Encontrar parqueadero</b-button>
+        <br/><h1 class="heading">¿Buscas un <br/>parqueadero?</h1>
+        <p>Nosotros lo encontramos por ti</p>
          
-            <b-button href="#" class="button-secondary"
-            size="md"
-            :to="'register'"
-            >Registrar parqueadero</b-button>
+        <div class="buttons">
+          <b-button href="#" class="button-primary"
+          size="md"                        
+          :to="'parkingmap'">Encontrar parqueadero</b-button>
+         
+          <b-button href="#" class="button-secondary"
+          size="md"
+          :to="'register'"
+          >Registrar parqueadero</b-button>
 
-            <b-button href="#" type="button" 
-            class="btn btn-light"
-            size="md"
-            :to="'register'"
-            >Mis parqueaderos</b-button>         
-          </div>          
-        </b-card>
+          <b-button href="#" type="button" 
+          class="third-btn"
+          size="md"
+          :to="'register'"
+          >Mis parqueaderos</b-button>                 
+        </div>         
       </b-jumbotron>
-  
       <Footer> </Footer>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -115,31 +108,32 @@ export default {
 
 <style scoped>
 
-.btn btn-light{
-  margin: 10px;
-}
-
 .buttons{
-  margin-top: 150px;
+  margin-top: 30%;
 }
-
 .heading{
-  color:black
+  color:#111110
 }
-
 .button-primary {
   margin: 10px;
   background-color: #000000;
-  border-color: #000000;
+  border: none;
   color: #f6f7eb;
 }
 .button-secondary {
   margin: 10px;
-  background-color: #adadad;
-  border-color: #adadad;
+  background-color: #FFF199;
+  border: none;
+  color: #111110;
+}
+.third-btn{
+  margin: 10px;
+  background-color:rgba(0,0,0,0);
+  border: none;
   color: #111110;
 }
 .max-height {
   height: 100%;
+  background-color: #FCE44E;
 }
 </style>

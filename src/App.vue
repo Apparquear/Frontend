@@ -12,14 +12,14 @@ export default {
 
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Raleway&family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 
 #app {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #1b1b1b;
   background-color: #DCE1DE;
   height: 100%;
 }

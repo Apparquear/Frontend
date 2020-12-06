@@ -76,15 +76,21 @@ export default {
 
 <style scoped>
 .button-primary {
-  background-color: #adadad;
-  border-color: #adadad;
+  background-color: #FFF199;
+  border-color: #FFF199;
   color: #111110;
 }
 .link {
   color: #004e64;
 }
 .navbar {
-  background-color: #6d6f75;
-  color: #f6f7eb;
+  background-color: #FCE44E;
+  color: #000000;
+}
+.navbar-brand{
+  color:#000000;
+}
+.collapse {
+  color:#000000;
 }
 </style>
