@@ -223,7 +223,7 @@
                         syze="sm"
                         type="button"
                         target="_blank"
-                        class="parking-routing-button m-1"
+                        class="parking-routing-button m-1 rounded-pill"
                         v-on:click="reservation(parking.parking.parkingID)"
                       >
                         Reservar
@@ -232,7 +232,7 @@
                         syze="sm"
                         type="button"
                         target="_blank"
-                        class="parking-routing-button m-1"
+                        class="parking-routing-button m-1 rounded-pill"
                         :href="
                           'https://www.google.com/maps?f=d&saddr=' +
                             coordinates.lat +
