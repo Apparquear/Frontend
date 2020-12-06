@@ -7,6 +7,7 @@ import Login from "@/components/Login";
 import Parkingmap from "@/components/Parkingmap";
 import ParkingRegister from "@/components/ParkingRegister";
 import Reserva from "@/components/Reserva";
+import Myparkings from "@/components/Myparkings"
 
 Vue.use(Router);
 
@@ -25,6 +26,7 @@ export default new Router({
       component: ParkingRegister
     },
     { path: "/reserva", name: "reserva", component: Reserva },
+    { path: "/myParkings", name: "myParkings", component: Myparkings },
     { path: "/:catchAll(.*)", redirect: "home" }
   ]
 });

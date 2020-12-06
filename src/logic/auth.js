@@ -12,6 +12,14 @@ export default {
     const user = { email, password };
     return axios.post(ENDPOINT_PATH + "user/login", user);
   },
+  isOwner(userID){
+    const user = { userID};
+    return axios.post(ENDPOINT_PATH + "user/isOwner", user);
+  },
+  myParkings(userID){
+    const user = { userID};
+    return axios.post(ENDPOINT_PATH + "user/myParkings", user);
+  },
   parking_register(
     parking_name,
     latitude,
