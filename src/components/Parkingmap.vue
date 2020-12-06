@@ -224,7 +224,7 @@
                         type="button"
                         target="_blank"
                         class="parking-routing-button m-1 rounded-pill"
-                        v-on:click="reservation(parking.parking.parkingID)"
+                        v-on:click="reservation(parking.parking)"
                       >
                         Reservar
                       </b-button>

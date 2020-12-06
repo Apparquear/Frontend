@@ -3,10 +3,10 @@
     <div v-if="!authenticated">
       <Loading> </Loading>
     </div>
-    <div v-if="authenticated">
+    <div v-if="authenticated" class="backgroundImg">
       <NavBar> </NavBar>
-      <h3>Horario de disponibilidad para: {{parking_name}}</h3>
-      <div class="m-0 p-0" style="height: 83vh; overflow-y: scroll">
+      <h3 class="mt-4">Horario de disponibilidad para: <strong>{{parking_name}}</strong></h3>
+      <div class="m-0 p-0" style="height: 84vh; overflow-y: scroll">
         <!-- <b-col cols="3" class="m-0 p-0">
           <b-form class="form" @submit="checkForm" id="form">
             <label class="title2">Fecha de Entrada</label>
@@ -82,12 +82,11 @@
               Nueva reserva
             </h4>
             <b-row class="m-0" style="inline-size: max-content">
-              <b-button class="m-1" variant="info" @click="closePopups()">
+              <b-button class="m-1 card-button rounded-pill" @click="closePopups()">
                 Cancelar
               </b-button>
               <b-button
-                class="m-1"
-                variant="info"
+                class="m-1 card-button rounded-pill"
                 @click="addAppointment(popup_information)"
               >
                 Guardar
@@ -432,5 +431,21 @@ export default {
 .created-event {
   align-self: center;
   width: 100% !important;
+}
+.card-button{
+  background-color: #504e47;
+  border-color: #504e47;
+  color: white;
+}
+.backgroundImg {
+  background-image: url("../assets/Home_BG.png");
+}
+.kalendar-wrapper.gstyle .created-event, .kalendar-wrapper.gstyle .creating-event{
+  background-color:  #ffc107!important;
+  color: #504e47!important;
+  font: 14px/1.5 "Poppins", sans-serif;
+}
+.popup-wrapper{
+  font: 14px/1.5 "Poppins", sans-serif;
 }
 </style>
