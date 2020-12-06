@@ -5,25 +5,36 @@
     </div>
     <div v-if="authenticated">
       <NavBar> </NavBar>
-      <b-jumbotron class="max-height">
-        <template v-slot:header>Apparquear</template>
+     
+      <b-jumbotron class="max-height backgroundImg m-0">
+        
+        <b-container class="text-left ml-1">
+          <br/><h1 class="heading"><b>¿Parqueadero?</b></h1>
+          <h3>Lo encontramos por tí.</h3>
+        </b-container>
 
-        <template v-slot:lead>
-          Bienvenido a Apparquear
-        </template>
+        <div class="buttons">
+          <b-button href="#" class="button-primary rounded-pill"
+          size="md"                        
+          :to="'parkingmap'">Encontrar parqueadero</b-button>
+          <br/>
+          <b-button href="#" class="button-secondary rounded-pill"
+          size="md"
+          :to="'parking_register'"
+          >Registrar parqueadero</b-button>
+          <br/>        
+          <b-button href="#" type="button" 
+          class="third-btn"
+          size="md"
+          :to="'Register'"
+          >Mis parqueaderos</b-button>                 
+        </div>
 
-        <hr class="my-4" />
-
-        <p>
-          ¿Buscas un parqueadero? Nosotros lo buscamos por ti.
-        </p>
-
-        <b-button href="#" class="button-primary">Botón primario</b-button>
-        <b-button href="#" class="button-secondary">Botón secundario</b-button>
       </b-jumbotron>
       <Footer> </Footer>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -55,6 +66,8 @@ export default {
       });
     }
   },
+
+
   mounted: function() {
     let $vm = this;
 
@@ -101,17 +114,47 @@ export default {
 </script>
 
 <style scoped>
+
+.buttons{
+  margin-top: 20%;
+  text-align: right;
+}
+.heading{
+  color:#111110
+}
 .button-primary {
-  background-color: #4a051c;
-  border-color: #4a051c;
+  margin: 10px;
+  background-color: #000000;
+  border: none;
   color: #f6f7eb;
 }
 .button-secondary {
-  background-color: #1a936f;
-  border-color: #1a936f;
-  color: #f6f7eb;
+  margin: 10px;
+  background-color: #FFF199;
+  border: none;
+  color: #111110;
+}
+.third-btn{
+  margin: 10px;
+  background-color:rgba(0,0,0,0);
+  border: none;
+  color: #111110;
 }
 .max-height {
   height: 100%;
+  background-color: rgba(0,0,0,0);
 }
+
+.backgroundImg {
+  background-image: url("../assets/Home_BG.png");
+  height: 91vh;
+}
+.ml-1{
+  margin-left: ($spacer * .25) !important;
+}
+
+.mr-1 {
+  margin-right: ($spacer * .25) !important;
+}
+
 </style>
