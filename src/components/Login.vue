@@ -4,7 +4,12 @@
       <h1 class="title"><b>Inicia sesión en Apparquear</b></h1>
       <b-form class="form" @submit="checkForm" id="form">
         <!-- Correo -->
-        <b-form-group class="light-text" label="Email" label-for="email">
+        <b-form-group
+          class="light-text"
+          label-class="font-weight-bold"
+          label="Email"
+          label-for="email"
+        >
           <b-input
             type="email"
             id="email"
@@ -15,6 +20,7 @@
         <!-- Password -->
         <b-form-group
           class="light-text"
+          label-class="font-weight-bold"
           label="Contraseña"
           label-for="password"
         >

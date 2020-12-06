@@ -1,7 +1,8 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" class="navbar sticky-top">
-      <b-navbar-brand :to="'home'">Apparquear</b-navbar-brand>
+      <img src="../assets/favicon.png" class="d-inline-block align-top" alt="favicon" width="30" height="30">
+      <b-navbar-brand :to="'home'" class="mx-3">Apparquear</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 

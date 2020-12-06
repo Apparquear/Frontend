@@ -5,13 +5,14 @@
     </div>
     <div v-if="authenticated">
       <NavBar> </NavBar>
-      <b-container class="parkingRegister">
-        <h1 class="title"><b>Registrar Parqueadero</b></h1>
+      <b-container class="parkingRegister p-0">
+        <h1 class="title mt-4"><b>Registrar Parqueadero</b></h1>
 
         <b-form class="form" @submit="checkForm" id="form">
           <!-- Nombre -->
           <b-form-group
-            class="light-text"
+            class="bold-text"
+            label-class="font-weight-bold"
             label="Nombre"
             label-for="parking_name"
           >
@@ -28,6 +29,7 @@
           <b-form-group
             class="light-text"
             label="Ubicacion"
+            label-class="font-weight-bold"
             label-for="markerLocation"
           >
             <div style="height: 400px; width: 100%">
@@ -62,6 +64,7 @@
           <b-form-group
             class="light-text"
             label="Horario"
+            label-class="font-weight-bold"
             label-for="schedule_open"
           >
             <b-input
@@ -72,7 +75,11 @@
             ></b-input
           ></b-form-group>
 
-          <b-form-group class="light-text" label-for="schedule_close">
+          <b-form-group
+            class="light-text"
+            label-class="font-weight-bold"
+            label-for="schedule_close"
+          >
             <b-input
               type="time"
               id="schedule_close"
@@ -84,6 +91,7 @@
           <!-- Número de bahías según tipo de vehiculo -->
           <b-form-group
             class="light-text"
+            label-class="font-weight-bold"
             label="Número de bahías según tipo de vehiculo"
             label-for="slot_v"
           >
@@ -95,7 +103,11 @@
             ></b-input
           ></b-form-group>
 
-          <b-form-group class="light-text" label-for="slot_m">
+          <b-form-group
+            class="light-text"
+            label-class="font-weight-bold"
+            label-for="slot_m"
+          >
             <b-input
               type="number"
               id="slot_m"
@@ -104,7 +116,11 @@
             ></b-input
           ></b-form-group>
 
-          <b-form-group class="light-text" label-for="slot_b">
+          <b-form-group
+            class="light-text"
+            label-class="font-weight-bold"
+            label-for="slot_b"
+          >
             <b-input
               type="number"
               id="slot_b"
@@ -116,6 +132,7 @@
           <!-- Costo por minuto según tipo de vehículo -->
           <b-form-group
             class="light-text"
+            label-class="font-weight-bold"
             label="Costo por minuto según tipo de vehículo"
             label-for="cost_v"
           >
@@ -127,7 +144,11 @@
             ></b-input
           ></b-form-group>
 
-          <b-form-group class="light-text" label-for="cost_m">
+          <b-form-group
+            class="light-text"
+            label-class="font-weight-bold"
+            label-for="cost_m"
+          >
             <b-input
               type="number"
               id="cost_m"
@@ -136,7 +157,11 @@
             ></b-input
           ></b-form-group>
 
-          <b-form-group class="light-text" label-for="cost_b">
+          <b-form-group
+            class="light-text"
+            label-class="font-weight-bold"
+            label-for="cost_b"
+          >
             <b-input
               type="number"
               id="cost_b"
@@ -538,8 +563,5 @@ export default {
 }
 .map {
   border-color: #141414;
-}
-.label {
-  font-weight: bold;
 }
 </style>

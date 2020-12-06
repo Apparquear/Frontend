@@ -34,7 +34,7 @@
             type="button"
             class="third-btn"
             size="md"
-            :to="'Register'"
+            :to="''"
             >Mis parqueaderos</b-button
           >
         </div>
