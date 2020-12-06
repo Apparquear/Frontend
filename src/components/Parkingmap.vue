@@ -512,13 +512,13 @@ export default {
 </script>
 
 <style scoped>
-.parking-routing-button {
-  background-color: #1a936f;
-  border-color: #1a936f;
-  color: #f6f7eb;
-}
-.card-header {
-  font-weight: bold;
-  background-color: #ffc107 !important;
-}
+  .parking-routing-button{
+    background-color: #141414;
+    border-color: #141414;
+    color: #f6f7eb;
+  }
+
+  .b-card {
+    background-color: #f6f7eb;
+  }
 </style>

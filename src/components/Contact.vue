@@ -1,5 +1,5 @@
 <template>
-  <div class="contact">
+  <div class="contact backgroundImg">
     <h1 class="title">Contacto</h1>
 
     <form form action class="form">
@@ -83,5 +83,10 @@ export default {
 .error {
   margin: 1rem 0 0;
   color: #ff4a96;
+}
+
+.backgroundImg {
+  background-image: url("../assets/Home_BG.png");
+  height: 91vh;
 }
 </style>

@@ -11,13 +11,16 @@ export default {
 </script>
 
 <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
 #app {
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  background-color: #DCE1DE;
+  color: #1b1b1b;
+  background-color: rgba(0,0,0,0);
   height: 100%;
 }
 </style>

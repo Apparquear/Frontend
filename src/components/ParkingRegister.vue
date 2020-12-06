@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="backgroundImg">
     <div v-if="!authenticated">
       <Loading> </Loading>
     </div>
@@ -43,6 +43,7 @@
                 style="height: 80%"
                 @update:center="centerUpdate"
                 @update:zoom="zoomUpdate"
+                class="map"
               >
                 <l-tile-layer :url="url" :attribution="attribution" />
                 <l-marker :latLng="markerLocation">
@@ -508,30 +509,37 @@ export default {
 .parkingRegister {
   padding: 2rem;
 }
-
 .button-primary {
-  background-color: #4a051c;
+  background-color: #141414;
   color: #f6f7eb;
 }
-
 .title {
   text-align: center;
   font-size: 2.5em;
-  color: #4a051c;
+  color: #141414;
 }
-
 .form {
   margin: 3rem auto;
   display: flex;
   flex-direction: column;
-  background: #004e64;
+  background: #f6f7eb;
   border-radius: 10px;
   max-width: 540px;
   padding: 40px;
   box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
+  text-align: justify;
 }
-
 .light-text {
-  color: #f6f7eb !important;
+  color: #141414 !important;
+}
+.backgroundImg {
+  background-image: url("../assets/Home_BG.png");
+  height: 150vh;
+}
+.map {
+  border-color: #141414;
+}
+.label {
+  font-weight: bold;
 }
 </style>

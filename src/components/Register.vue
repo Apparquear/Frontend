@@ -1,5 +1,5 @@
 <template>
-  <div class="register">
+  <div class="register backgroundImg">
     <b-container>
       <h1 class="title"><b>Regístrate en Apparquear</b></h1>
       <b-form class="form" @submit="checkForm" id="form">
@@ -202,11 +202,12 @@ export default {
 
 <style scoped>
 .button-primary {
-  background-color: #4a051c;
+  background-color: #141414;
   color: #f6f7eb;
 }
 .light-text {
-  color: #f6f7eb !important;
+  color: #141414 !important;
+  text-align: justify;
 }
 .register {
   padding: 2rem;
@@ -214,16 +215,20 @@ export default {
 .title {
   text-align: center;
   font-size: 2.5em;
-  color: #4a051c;
+  color: #141414;
 }
 .form {
   margin: 3rem auto;
   display: flex;
   flex-direction: column;
-  background: #004e64;
+  background: #f6f7eb;
   border-radius: 10px;
   padding: 40px;
   max-width: 540px;
   box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
+}
+.backgroundImg {
+  background-image: url("../assets/Home_BG.png");
+  height: 100vh;
 }
 </style>
