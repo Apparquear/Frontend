@@ -20,6 +20,10 @@ export default {
     const user = { userID};
     return axios.post(ENDPOINT_PATH + "user/myParkings", user);
   },
+  changePrice(parking){
+    const parkingnew=parking;
+    return axios.post(ENDPOINT_PATH + "parking/changePrice", parkingnew);
+  },
   parking_register(
     parking_name,
     latitude,
