@@ -25,6 +25,15 @@
             href="#"
             class="button-secondary rounded-pill"
             size="md"
+            :to="'myReservations'"
+            >Mis reservas</b-button
+          >
+          <br />
+          <b-button
+            href="#"
+            type="button"
+            class="third-btn"
+            size="md"
             :to="'parking_register'"
             >Registrar parqueadero</b-button
           >

@@ -6,7 +6,7 @@
     <div v-if="authenticated" class="backgroundImg">
       <NavBar> </NavBar>
       <h3 class="mt-4">
-        Horario de disponibilidad para: <strong>{{ parking_name }}</strong>
+        Mis reservas
       </h3>
       <div class="m-0 p-0" style="height: 84vh; overflow-y: scroll">
         <kalendar :configuration="calendar_settings" :events.sync="events">
@@ -24,41 +24,6 @@
               {{ event_information.start_time | formatToHours }} to
               {{ event_information.end_time | formatToHours }}
             </h5>
-          </div>
-          <!-- CREATING CARD SLOT -->
-          <div slot="creating-card" slot-scope="{ event_information }">
-            <h4 style="text-align: center;">
-              {{ parking_name }}
-            </h4>
-            <br />
-            <span>
-              {{ event_information.start_time | formatToHours }} to
-              {{ event_information.end_time | formatToHours }}
-            </span>
-          </div>
-          <!-- POPUP CARD SLOT -->
-          <div
-            slot="popup-form"
-            slot-scope="{ popup_information }"
-            style="display: flex; flex-direction: column;"
-          >
-            <h4 style="margin-bottom: 10px">
-              Nueva reserva
-            </h4>
-            <b-row class="m-0" style="inline-size: max-content">
-              <b-button
-                class="m-1 card-button rounded-pill"
-                @click="closePopups()"
-              >
-                Cancelar
-              </b-button>
-              <b-button
-                class="m-1 card-button rounded-pill"
-                @click="addAppointment(popup_information)"
-              >
-                Guardar
-              </b-button>
-            </b-row>
           </div>
         </kalendar>
         <!-- <kalendar :configuration="calendar_settings" :events.sync="events" /> -->
@@ -113,7 +78,7 @@ export default {
         scrollToNow: true,
         start_day: getCurrentDay(),
         military_time: false,
-        read_only: false,
+        read_only: true,
         day_starts_at: 0,
         day_ends_at: 24,
         parking_opening_time: DateTime.fromISO(
@@ -305,22 +270,6 @@ export default {
         this.invalidateToken();
       }
       this.$router.push("login");
-    },
-    addAppointment(popup_info) {
-      let payload = {
-        data: {
-					title: this.parking_name,
-				},
-        from: popup_info.start_time,
-        to: popup_info.end_time
-      };
-      this.$kalendar.addNewEvent(payload);
-      this.$kalendar.closePopups();
-      console.log(popup_info.start_time);
-      this.reservation_time = popup_info.start_time.replace("-05:00", "+00:00");
-      this.final_time = popup_info.end_time.replace("-05:00", "+00:00");
-      this.reserva();
-      this.clearFormData();
     },
     closePopups() {
       this.$kalendar.closePopups();
