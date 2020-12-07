@@ -152,28 +152,6 @@ export default {
     Loading,
     Kalendar
   },
-  beforeCreate: function() {
-    let $vm = this;
-    auth
-      .reservationsByUser($vm.user_id)
-      .then(response => {
-        if (response && response.status == 200) {
-          let eventos = new Array();
-          for (const eventResponse in response.data) {
-            let event = {
-              from: response.data[eventResponse].reservation_time,
-              to: response.data[eventResponse].final_time
-            };
-            eventos.push(event);
-          }
-          console.log(eventos);
-          $vm.eventos = eventos;
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  },
   created: function() {
     Vue.filter("formatToHours", (value, how) => {
       let dt = DateTime.fromISO(value);
