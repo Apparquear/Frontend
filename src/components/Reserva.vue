@@ -103,7 +103,7 @@ function getCurrentDay() {
   today.setMinutes(0);
   today.setSeconds(0);
   today.setMilliseconds(0);
-  today.setDate(today.getUTCDate() - 1);
+  today.setDate(today.getUTCDate());
   return today.toISOString();
 }
 export default {
