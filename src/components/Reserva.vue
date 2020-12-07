@@ -79,18 +79,25 @@ import { Kalendar } from "kalendar-vue";
 import { DateTime } from "luxon";
 import Vue from "vue";
 
-const _events = new Array();
+let _events = new Array();
 auth
   .reservationsByUser(sessionStorage.getItem("ap_user_id"))
   .then(response => {
     if (response && response.status == 200) {
-      for (const eventResponse in response.data) {
+      for (let eventResponse in response.data) {
         let event = {
-          from: response.data[eventResponse].reservation_time.replace("+00:00","-05:00"),
-          to: response.data[eventResponse].final_time.replace("+00:00","-05:00")
+          from: response.data[eventResponse].reservation_time.replace(
+            "+00:00",
+            "-05:00"
+          ),
+          to: response.data[eventResponse].final_time.replace(
+            "+00:00",
+            "-05:00"
+          )
         };
         _events.push(event);
       }
+      console.log(_events);
     }
   })
   .catch(error => {
@@ -120,7 +127,6 @@ export default {
         enableTime: true,
         dateFormat: "Y-d-mTH:i:S"
       },
-      options: ["carros", "ciclas", "motos"],
       events: _events,
       calendar_settings: {
         view_type: "week",
@@ -202,53 +208,27 @@ export default {
   },
 
   methods: {
-    checkForm: function() {
-      if (!this.reservation_time) {
-        return this.makeToast(
-          "danger",
-          "Fecha inválida",
-          "Por favor digita la fecha "
-        );
-      }
-      if (!this.final_time) {
-        return this.makeToast(
-          "danger",
-          "Fecha inválida",
-          "Por favor digita la fecha "
-        );
-      }
-      if (!this.vehicle_type) {
-        return this.makeToast(
-          "danger",
-          "Tipo de vehiculo inválido",
-          "Por favor vehiculo válido"
-        );
-      }
-
-      return this.reserva();
-    },
-
     reserva: function() {
-      let ap_user_id, ap_token, ap_parking_id;
+      let ap_user_id, ap_token, ap_parking_id, ap_vehicle_type;
 
       if (
         sessionStorage.getItem("ap_user_id") &&
         sessionStorage.getItem("ap_token") &&
-        sessionStorage.getItem("ap_parking_id")
+        sessionStorage.getItem("ap_parking_id") &&
+        sessionStorage.getItem("ap_vehicle_type")
       ) {
         ap_user_id = sessionStorage.getItem("ap_user_id");
         ap_token = sessionStorage.getItem("ap_token");
         ap_parking_id = sessionStorage.getItem("ap_parking_id");
+        ap_vehicle_type = sessionStorage.getItem("ap_vehicle_type");
 
         console.log(this.reservation_time);
         console.log(this.final_time);
-        console.log(this.vehicle_type);
         auth
-
           .reserva(
             this.reservation_time,
             this.final_time,
-            this.vehicle_type,
+            ap_vehicle_type,
             ap_user_id,
             ap_token,
             ap_parking_id
@@ -261,12 +241,29 @@ export default {
                 "Reserva completa",
                 "Has completado la reserva exitosamente"
               );
-              setTimeout(
-                function() {
-                  this.$router.push({ path: "/home" });
-                }.bind(this),
-                1000
-              );
+              _events = new Array();
+              auth
+                .reservationsByUser(sessionStorage.getItem("ap_user_id"))
+                .then(response => {
+                  if (response && response.status == 200) {
+                    for (let eventResponse in response.data) {
+                      let event = {
+                        from: response.data[
+                          eventResponse
+                        ].reservation_time.replace("+00:00", "-05:00"),
+                        to: response.data[eventResponse].final_time.replace(
+                          "+00:00",
+                          "-05:00"
+                        )
+                      };
+                      _events.push(event);
+                    }
+                    console.log(_events);
+                  }
+                })
+                .catch(error => {
+                  console.log(error);
+                });
             }
           })
           .catch(error => {
@@ -304,24 +301,21 @@ export default {
     addAppointment(popup_info) {
       let payload = {
         data: {
-          title: this.new_appointment.title,
-          description: this.new_appointment.description
+          title: "Reserva"
         },
         from: popup_info.start_time,
         to: popup_info.end_time
       };
       this.$kalendar.addNewEvent(payload);
       this.$kalendar.closePopups();
+      console.log(popup_info.start_time);
+      this.reservation_time = popup_info.start_time.replace("-05:00", "+00:00");
+      this.final_time = popup_info.end_time.replace("-05:00", "+00:00");
+      this.reserva();
       this.clearFormData();
     },
     closePopups() {
       this.$kalendar.closePopups();
-    },
-    clearFormData() {
-      this.new_appointment = {
-        description: null,
-        title: null
-      };
     },
     makeToast(variant = null, tittle, text) {
       this.$bvToast.toast(text, {

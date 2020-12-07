@@ -84,7 +84,7 @@
                   : </b
                 >{{ parking.parking.closing_time }}
                 <br />
-                <span v-if="vehycle_type == 1"
+                <span v-if="vehicle_type == 1"
                   ><b
                     ><b-icon-cash
                       style="width: 15px; height: 15px"
@@ -92,7 +92,7 @@
                     Costo bici por minuto: $</b
                   >{{ parking.parking.bike_cost_minute }}</span
                 >
-                <span v-if="vehycle_type == 2"
+                <span v-if="vehicle_type == 2"
                   ><b
                     ><b-icon-cash
                       style="width: 15px; height: 15px"
@@ -100,7 +100,7 @@
                     Costo moto por minuto: $</b
                   >{{ parking.parking.motorcycle_cost_minute }}</span
                 >
-                <span v-if="vehycle_type == 3"
+                <span v-if="vehicle_type == 3"
                   ><b
                     ><b-icon-cash
                       style="width: 15px; height: 15px"
@@ -116,19 +116,19 @@
                   Calificacion: </b
                 >{{ parking.parking.score }}
                 <br />
-                <span v-if="vehycle_type == 1"
+                <span v-if="vehicle_type == 1"
                   ><b>Espacios disponibles a esta hora: </b
                   >{{ parking.parking.bike_spaces_available }}</span
                 >
-                <span v-if="vehycle_type == 2"
+                <span v-if="vehicle_type == 2"
                   ><b>Espacios disponibles a esta hora: </b
                   >{{ parking.parking.motorcycle_spaces_available }}</span
                 >
-                <span v-if="vehycle_type == 3"
+                <span v-if="vehicle_type == 3"
                   ><b>Espacios disponibles a esta hora: </b
                   >{{ parking.parking.car_spaces_available }}</span
                 >
-                <span v-if="vehycle_type == 0"
+                <span v-if="vehicle_type == 0"
                   ><b>Espacios disponibles a esta hora: </b
                   >{{ parking.parking.total_spaces_available }}</span
                 ></b-card-text
@@ -176,23 +176,23 @@
                     ></b-icon-star-half>
                     Calificacion: {{ parking.parking.score }}
                     <br />
-                    <span v-if="vehycle_type == 1"
+                    <span v-if="vehicle_type == 1"
                       >Espacios disponibles a esta hora:
                       {{ parking.parking.bike_spaces_available }}</span
                     >
-                    <span v-if="vehycle_type == 2"
+                    <span v-if="vehicle_type == 2"
                       >Espacios disponibles a esta hora:
                       {{ parking.parking.motorcycle_spaces_available }}</span
                     >
-                    <span v-if="vehycle_type == 3"
+                    <span v-if="vehicle_type == 3"
                       >Espacios disponibles a esta hora:
                       {{ parking.parking.car_spaces_available }}</span
                     >
-                    <span v-if="vehycle_type == 0"
+                    <span v-if="vehicle_type == 0"
                       >Espacios disponibles a esta hora:
                       {{ parking.parking.total_spaces_available }}</span
                     >
-                    <br /><span v-if="vehycle_type == 1"
+                    <br /><span v-if="vehicle_type == 1"
                       ><b-icon-cash
                         style="width: 15px; height: 15px"
                       ></b-icon-cash>
@@ -200,7 +200,7 @@
                         parking.parking.bike_cost_minute
                       }}</span
                     >
-                    <span v-if="vehycle_type == 2"
+                    <span v-if="vehicle_type == 2"
                       ><b-icon-cash
                         style="width: 15px; height: 15px"
                       ></b-icon-cash>
@@ -208,7 +208,7 @@
                         parking.parking.motorcycle_cost_minute
                       }}</span
                     >
-                    <span v-if="vehycle_type == 3"
+                    <span v-if="vehicle_type == 3"
                       ><b-icon-cash
                         style="width: 15px; height: 15px"
                       ></b-icon-cash>
@@ -216,8 +216,8 @@
                         parking.parking.car_cost_minute
                       }}</span
                     >
-                    <br>
-                    <br>
+                    <br />
+                    <br />
                     <b-row class="m-0 p-0 buttons">
                       <b-button
                         syze="sm"
@@ -314,7 +314,7 @@ export default {
       bici_check: false,
       moto_check: false,
       carro_check: false,
-      vehycle_type: 0,
+      vehicle_type: 0,
       sort_options: [
         { text: "Sin ordenar", value: null },
         "Precio $ - $$",
@@ -330,6 +330,19 @@ export default {
       sessionStorage.setItem("ap_parking_id", parking.parkingID);
       sessionStorage.setItem("ap_parking_opening", parking.opening_time);
       sessionStorage.setItem("ap_parking_closing", parking.closing_time);
+      switch (this.vehicle_type) {
+        case 1:
+          sessionStorage.setItem("ap_vehicle_type", "bici");
+          break;
+        case 2:
+          sessionStorage.setItem("ap_vehicle_type", "moto");
+          break;
+        case 3:
+          sessionStorage.setItem("ap_vehicle_type", "carro");
+          break;
+        default:
+          sessionStorage.setItem("ap_vehicle_type", "carro");
+      }
       this.$router.push({ path: "/reserva" });
     },
     zoomUpdated(zoom) {
@@ -343,8 +356,8 @@ export default {
       this.nearByParking(bounds);
     },
     setVehicle(type) {
-      this.vehycle_type = type;
-      switch (this.vehycle_type) {
+      this.vehicle_type = type;
+      switch (this.vehicle_type) {
         case 1:
           this.bici_check = true;
           this.moto_check = false;
@@ -371,7 +384,6 @@ export default {
         .nearByParking(bounds)
         .then(response => {
           this.response = response.data;
-          console.log(response);
         })
         .catch(error => {
           console.log(error);
@@ -447,7 +459,7 @@ export default {
   },
   beforeUpdate() {
     let $vm = this;
-    switch ($vm.vehycle_type) {
+    switch ($vm.vehicle_type) {
       case 1: //bici
         $vm.filtered = $vm.response.filter(
           parking => parking.parking.bike_spaces > 0
@@ -543,7 +555,7 @@ export default {
 .card-body {
   text-align: center;
 }
-.card-title{
+.card-title {
   font-weight: bold;
 }
 .buttons {
