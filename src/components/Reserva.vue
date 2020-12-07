@@ -80,29 +80,6 @@ import { DateTime } from "luxon";
 import Vue from "vue";
 
 let _events = new Array();
-auth
-  .reservationsByUser(sessionStorage.getItem("ap_user_id"))
-  .then(response => {
-    if (response && response.status == 200) {
-      for (let eventResponse in response.data) {
-        let event = {
-          from: response.data[eventResponse].reservation_time.replace(
-            "+00:00",
-            "-05:00"
-          ),
-          to: response.data[eventResponse].final_time.replace(
-            "+00:00",
-            "-05:00"
-          )
-        };
-        _events.push(event);
-      }
-      console.log(_events);
-    }
-  })
-  .catch(error => {
-    console.log(error);
-  });
 
 let today = new Date();
 function getCurrentDay() {
@@ -157,6 +134,31 @@ export default {
     flatPickr,
     Loading,
     Kalendar
+  },
+  beforeCreate: function() {
+    auth
+      .reservationsByUser(sessionStorage.getItem("ap_user_id"))
+      .then(response => {
+        if (response && response.status == 200) {
+          for (let eventResponse in response.data) {
+            let event = {
+              from: response.data[eventResponse].reservation_time.replace(
+                "+00:00",
+                "-05:00"
+              ),
+              to: response.data[eventResponse].final_time.replace(
+                "+00:00",
+                "-05:00"
+              )
+            };
+            _events.push(event);
+          }
+          console.log(_events);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   },
   created: function() {
     Vue.filter("formatToHours", (value, how) => {
