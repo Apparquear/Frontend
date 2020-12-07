@@ -34,7 +34,7 @@
             type="button"
             class="third-btn"
             size="md"
-            :to="''"
+            v-on:click="isOwner()"
             >Mis parqueaderos</b-button
           >
         </div>
@@ -63,6 +63,21 @@ export default {
     token: null
   }),
   methods: {
+    isOwner(){
+      let user_id;
+      user_id= sessionStorage.getItem("ap_user_id");
+      auth
+        .isOwner(user_id)
+        .then(response =>{
+          console.log(response);
+          if(response.data) this.$router.push({path:"/MyParkings"})
+          else {this.makeToast(
+                "warning",
+                "No tienes parqueaderos",
+                ""
+              );}       
+        } )
+    },
     makeToast(variant = null, tittle, text) {
       this.$bvToast.toast(text, {
         toaster: "b-toaster-bottom-right",
