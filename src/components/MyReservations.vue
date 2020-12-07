@@ -5,9 +5,9 @@
     </div>
     <div v-if="authenticated" class="backgroundImg">
       <NavBar> </NavBar>
-      <h3 class="mt-4">
-        Mis reservas
-      </h3>
+      <h2 class="mt-4">
+        <strong>Mis reservas</strong>
+      </h2>
       <div class="m-0 p-0" style="height: 84vh; overflow-y: scroll">
         <kalendar :configuration="calendar_settings" :events.sync="events">
           <!-- CREATED CARD SLOT -->
