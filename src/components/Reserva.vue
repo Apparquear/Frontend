@@ -5,45 +5,10 @@
     </div>
     <div v-if="authenticated" class="backgroundImg">
       <NavBar> </NavBar>
-      <h3 class="mt-4">Horario de disponibilidad para: <strong>{{parking_name}}</strong></h3>
+      <h3 class="mt-4">
+        Horario de disponibilidad para: <strong>{{ parking_name }}</strong>
+      </h3>
       <div class="m-0 p-0" style="height: 84vh; overflow-y: scroll">
-        <!-- <b-col cols="3" class="m-0 p-0">
-          <b-form class="form" @submit="checkForm" id="form">
-            <label class="title2">Fecha de Entrada</label>
-            <flat-pickr
-              v-model="reservation_time"
-              :config="config"
-              class="form-control"
-              name="reservation_time"
-            >
-            </flat-pickr>
-
-            <label class="title2">Fecha de Salida</label>
-
-            <flat-pickr
-              v-model="final_time"
-              :config="config"
-              class="form-control"
-              name="final_time"
-            >
-            </flat-pickr>
-
-            <label class="title2">Tipo de vehiculo</label>
-            <select
-              v-model="vehicle_type"
-              label="Seleccione el rol"
-              class="browser-default custom-select"
-            >
-              <option value="carros">Carros</option>
-              <option value="motos">Motos</option>
-              <option value="cicla">Cicla</option>
-            </select>
-            <br />
-            <b-button size="lg" block class="button-primary" type="submit"
-              >Reservar</b-button
-            >
-          </b-form>
-        </b-col> -->
         <kalendar :configuration="calendar_settings" :events.sync="events">
           <!-- CREATED CARD SLOT -->
           <div
@@ -52,11 +17,9 @@
             class="h-100"
             align-v="center"
           >
-            <h4><u>Reserva</u></h4>
-            <br />
             <h5>
-              {{ event_information.start_time | formatToHours }} <br />
-              to <br />
+              <u><strong>Reserva:</strong></u>
+              {{ event_information.start_time | formatToHours }} to
               {{ event_information.end_time | formatToHours }}
             </h5>
           </div>
@@ -67,8 +30,7 @@
             </h4>
             <br />
             <span>
-              {{ event_information.start_time | formatToHours }} <br />
-              to <br />
+              {{ event_information.start_time | formatToHours }} to
               {{ event_information.end_time | formatToHours }}
             </span>
           </div>
@@ -82,7 +44,10 @@
               Nueva reserva
             </h4>
             <b-row class="m-0" style="inline-size: max-content">
-              <b-button class="m-1 card-button rounded-pill" @click="closePopups()">
+              <b-button
+                class="m-1 card-button rounded-pill"
+                @click="closePopups()"
+              >
                 Cancelar
               </b-button>
               <b-button
@@ -113,40 +78,25 @@ import auth from "../logic/auth";
 import { Kalendar } from "kalendar-vue";
 import { DateTime } from "luxon";
 import Vue from "vue";
-const _existing_events = [
-  {
-    from: "2020-12-04T04:00:00.300Z",
-    to: "2020-12-04T04:10:00.300Z",
-    data: {
-      title: "Right now",
-      description: "Lorem ipsum"
+
+const _events = new Array();
+auth
+  .reservationsByUser(sessionStorage.getItem("ap_user_id"))
+  .then(response => {
+    if (response && response.status == 200) {
+      for (const eventResponse in response.data) {
+        let event = {
+          from: response.data[eventResponse].reservation_time.replace("+00:00","-05:00"),
+          to: response.data[eventResponse].final_time.replace("+00:00","-05:00")
+        };
+        _events.push(event);
+      }
     }
-  },
-  {
-    from: "2020-12-11T10:22:00-07:00",
-    to: "2020-12-31T11:55:00-07:00",
-    data: {
-      title: "Truth",
-      description: "Look."
-    }
-  },
-  {
-    from: "2020-12-11T10:22:00-07:00",
-    to: "2020-12-31T11:20:00-07:00",
-    data: {
-      title: "Side",
-      description: "Look.2"
-    }
-  },
-  {
-    from: "2020-12-11T10:22:00Z",
-    to: "2020-12-31T11:20:00Z",
-    data: {
-      title: "Europe",
-      description: "Final Countdown"
-    }
-  }
-];
+  })
+  .catch(error => {
+    console.log(error);
+  });
+
 let today = new Date();
 function getCurrentDay() {
   today.setHours(0);
@@ -156,20 +106,6 @@ function getCurrentDay() {
   today.setDate(today.getUTCDate() - 1);
   return today.toISOString();
 }
-// change the dates on _existing events to this week
-const startDate = new Date(_existing_events[0].from).getUTCDate();
-function makeNow(dateString) {
-  const d = new Date(dateString);
-  d.setYear(today.getUTCFullYear());
-  d.setMonth(today.getUTCMonth());
-  d.setDate(today.getUTCDate() + (d.getUTCDate() - startDate));
-  return d.toISOString();
-}
-const existing_events = _existing_events.map(ev => ({
-  ...ev,
-  from: makeNow(ev.from),
-  to: makeNow(ev.to)
-}));
 export default {
   name: "Reserva",
   data() {
@@ -185,23 +121,28 @@ export default {
         dateFormat: "Y-d-mTH:i:S"
       },
       options: ["carros", "ciclas", "motos"],
-      events: _existing_events,
+      events: _events,
       calendar_settings: {
         view_type: "week",
         cell_height: 10,
         scrollToNow: true,
-        // current_day: new Date().toISOString(),
         start_day: getCurrentDay(),
         military_time: false,
         read_only: false,
-        day_starts_at: DateTime.fromISO(sessionStorage.getItem("ap_parking_opening")).hour,
-        day_ends_at: DateTime.fromISO(sessionStorage.getItem("ap_parking_closing")).hour,
+        day_starts_at: 0,
+        day_ends_at: 24,
+        parking_opening_time: DateTime.fromISO(
+          sessionStorage.getItem("ap_parking_opening")
+        ).TIME_SIMPLE,
+        parking_closing_time: DateTime.fromISO(
+          sessionStorage.getItem("ap_parking_closing")
+        ).TIME_SIMPLE,
         overlap: false,
         hide_days: [],
         past_event_creation: false
       },
       new_appointment: {},
-      parking_name: sessionStorage.getItem("ap_parking_name"),
+      parking_name: sessionStorage.getItem("ap_parking_name")
     };
   },
   components: {
@@ -211,12 +152,33 @@ export default {
     Loading,
     Kalendar
   },
+  beforeCreate: function() {
+    let $vm = this;
+    auth
+      .reservationsByUser($vm.user_id)
+      .then(response => {
+        if (response && response.status == 200) {
+          let eventos = new Array();
+          for (const eventResponse in response.data) {
+            let event = {
+              from: response.data[eventResponse].reservation_time,
+              to: response.data[eventResponse].final_time
+            };
+            eventos.push(event);
+          }
+          console.log(eventos);
+          $vm.eventos = eventos;
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
   created: function() {
     Vue.filter("formatToHours", (value, how) => {
       let dt = DateTime.fromISO(value);
       return dt.toLocaleString(DateTime.TIME_24_SIMPLE);
     });
-
   },
   mounted: function() {
     let $vm = this;
@@ -432,7 +394,7 @@ export default {
   align-self: center;
   width: 100% !important;
 }
-.card-button{
+.card-button {
   background-color: #504e47;
   border-color: #504e47;
   color: white;
@@ -440,12 +402,16 @@ export default {
 .backgroundImg {
   background-image: url("../assets/Home_BG.png");
 }
-.kalendar-wrapper.gstyle .created-event, .kalendar-wrapper.gstyle .creating-event{
-  background-color:  #ffc107!important;
-  color: #504e47!important;
+.kalendar-wrapper.gstyle .created-event,
+.kalendar-wrapper.gstyle .creating-event {
+  background-color: #ffc107 !important;
+  color: #504e47 !important;
+  border-color: #504e47;
+  border-style: dotted;
+  border-width: 2px;
   font: 14px/1.5 "Poppins", sans-serif;
 }
-.popup-wrapper{
+.popup-wrapper {
   font: 14px/1.5 "Poppins", sans-serif;
 }
 </style>
