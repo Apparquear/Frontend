@@ -384,6 +384,7 @@ export default {
         .nearByParking(bounds)
         .then(response => {
           this.response = response.data;
+          console.log(response);
         })
         .catch(error => {
           console.log(error);
