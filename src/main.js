@@ -9,6 +9,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 import VueGeolocation from 'vue-browser-geolocation'
 import { LMap, LTileLayer, LMarker, LPopup, LTooltip, LIcon, LControl } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
+import PortalVue from "portal-vue";
+
+Vue.use(PortalVue);
+
 
 
 Vue.component('l-map', LMap);
@@ -26,11 +30,17 @@ Vue.use(IconsPlugin)
 // User geolocation
 Vue.use(VueGeolocation)
 /* eslint-disable no-new */
- 
+
+
+
+
+
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>'
 })
 

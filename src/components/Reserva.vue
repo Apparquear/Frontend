@@ -3,46 +3,65 @@
     <div v-if="!authenticated">
       <Loading> </Loading>
     </div>
-    <div v-if="authenticated">
+    <div v-if="authenticated" class="backgroundImg">
       <NavBar> </NavBar>
-      <b-container class="disp">
-        <h1 class="title"><b>Reservar bahia</b></h1>
-        <b-form class="form" @submit="checkForm" id="form">
-          <label class="title2">Fecha de Entrada</label>
-          <flat-pickr
-            v-model="reservation_time"
-            :config="config"
-            class="form-control"
-            name="reservation_time"
+      <h3 class="mt-4">
+        Horario de disponibilidad para: <strong>{{ parking_name }}</strong>
+      </h3>
+      <div class="m-0 p-0" style="height: 84vh; overflow-y: scroll">
+        <kalendar :configuration="calendar_settings" :events.sync="events">
+          <!-- CREATED CARD SLOT -->
+          <div
+            slot="created-card"
+            slot-scope="{ event_information }"
+            class="h-100"
+            align-v="center"
           >
-          </flat-pickr>
+            <h5>
+              <u><strong>Reserva:</strong></u>
+              {{ event_information.start_time | formatToHours }} to
+              {{ event_information.end_time | formatToHours }}
+            </h5>
+          </div>
+          <!-- CREATING CARD SLOT -->
+          <div slot="creating-card" slot-scope="{ event_information }">
+            <h4 style="text-align: center;">
+              Nueva reserva
+            </h4>
+            <br />
+            <span>
+              {{ event_information.start_time | formatToHours }} to
+              {{ event_information.end_time | formatToHours }}
+            </span>
+          </div>
+          <!-- POPUP CARD SLOT -->
+          <div
+            slot="popup-form"
+            slot-scope="{ popup_information }"
+            style="display: flex; flex-direction: column;"
+          >
+            <h4 style="margin-bottom: 10px">
+              Nueva reserva
+            </h4>
+            <b-row class="m-0" style="inline-size: max-content">
+              <b-button
+                class="m-1 card-button rounded-pill"
+                @click="closePopups()"
+              >
+                Cancelar
+              </b-button>
+              <b-button
+                class="m-1 card-button rounded-pill"
+                @click="addAppointment(popup_information)"
+              >
+                Guardar
+              </b-button>
+            </b-row>
+          </div>
+        </kalendar>
+        <!-- <kalendar :configuration="calendar_settings" :events.sync="events" /> -->
+      </div>
 
-          <label class="title2">Fecha de Salida</label>
-
-          <flat-pickr
-            v-model="final_time"
-            :config="config"
-            class="form-control"
-            name="final_time"
-          >
-          </flat-pickr>
-
-          <label class="title2">Tipo de vehiculo</label>
-          <select
-            v-model="vehicle_type"
-            label="Seleccione el rol"
-            class="browser-default custom-select"
-          >
-            <option value="carros">Carros</option>
-            <option value="motos">Motos</option>
-            <option value="cicla">Cicla</option>
-          </select>
-          <br />
-          <b-button size="lg" block class="button-primary" type="submit"
-            >Reservar</b-button
-          >
-        </b-form>
-      </b-container>
       <Footer> </Footer>
     </div>
   </div>
@@ -55,6 +74,45 @@ import Loading from "./Loading.vue";
 import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
 import auth from "../logic/auth";
+
+import { Kalendar } from "kalendar-vue";
+import { DateTime } from "luxon";
+import Vue from "vue";
+
+let _events = new Array();
+auth
+  .reservationsByUser(sessionStorage.getItem("ap_user_id"))
+  .then(response => {
+    if (response && response.status == 200) {
+      for (let eventResponse in response.data) {
+        let event = {
+          from: response.data[eventResponse].reservation_time.replace(
+            "+00:00",
+            "-05:00"
+          ),
+          to: response.data[eventResponse].final_time.replace(
+            "+00:00",
+            "-05:00"
+          )
+        };
+        _events.push(event);
+      }
+      console.log(_events);
+    }
+  })
+  .catch(error => {
+    console.log(error);
+  });
+
+let today = new Date();
+function getCurrentDay() {
+  today.setHours(0);
+  today.setMinutes(0);
+  today.setSeconds(0);
+  today.setMilliseconds(0);
+  today.setDate(today.getUTCDate());
+  return today.toISOString();
+}
 export default {
   name: "Reserva",
   data() {
@@ -67,10 +125,30 @@ export default {
         altFormat: "F j, Y",
         altInput: true,
         enableTime: true,
-        dateFormat: "Y-d-mTH:i:S",
+        dateFormat: "Y-d-mTH:i:S"
       },
-
-      options: ["carros", "ciclas", "motos"],
+      events: _events,
+      calendar_settings: {
+        view_type: "week",
+        cell_height: 10,
+        scrollToNow: true,
+        start_day: getCurrentDay(),
+        military_time: false,
+        read_only: false,
+        day_starts_at: 0,
+        day_ends_at: 24,
+        parking_opening_time: DateTime.fromISO(
+          sessionStorage.getItem("ap_parking_opening")
+        ).TIME_SIMPLE,
+        parking_closing_time: DateTime.fromISO(
+          sessionStorage.getItem("ap_parking_closing")
+        ).TIME_SIMPLE,
+        overlap: false,
+        hide_days: [],
+        past_event_creation: false
+      },
+      new_appointment: {},
+      parking_name: sessionStorage.getItem("ap_parking_name")
     };
   },
   components: {
@@ -78,9 +156,15 @@ export default {
     Footer,
     flatPickr,
     Loading,
+    Kalendar
   },
-
-  mounted: function () {
+  created: function() {
+    Vue.filter("formatToHours", (value, how) => {
+      let dt = DateTime.fromISO(value);
+      return dt.toLocaleString(DateTime.TIME_24_SIMPLE);
+    });
+  },
+  mounted: function() {
     let $vm = this;
 
     function invalidateToken() {
@@ -88,12 +172,12 @@ export default {
       sessionStorage.removeItem("ap_token");
       auth
         .invalidate_token(token)
-        .then((response) => {
+        .then(response => {
           if (response && response.status == 200) {
             console.log("token invalidado");
           }
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     }
@@ -118,80 +202,71 @@ export default {
     function authenticate() {
       getToken();
     }
-    setTimeout(function () {
+    setTimeout(function() {
       authenticate();
     }, 1000);
   },
 
   methods: {
-    checkForm: function () {
-      if (!this.reservation_time) {
-        return this.makeToast(
-          "danger",
-          "Fecha inválida",
-          "Por favor digita la fecha "
-        );
-      }
-      if (!this.final_time) {
-        return this.makeToast(
-          "danger",
-          "Fecha inválida",
-          "Por favor digita la fecha "
-        );
-      }
-      if (!this.vehicle_type) {
-        return this.makeToast(
-          "danger",
-          "Tipo de vehiculo inválido",
-          "Por favor vehiculo válido"
-        );
-      }
-
-      return this.reserva();
-    },
-
-    reserva: function () {
-      let ap_user_id, ap_token, ap_parking_id;
+    reserva: function() {
+      let ap_user_id, ap_token, ap_parking_id, ap_vehicle_type;
 
       if (
         sessionStorage.getItem("ap_user_id") &&
         sessionStorage.getItem("ap_token") &&
-        sessionStorage.getItem("ap_parking_id")
+        sessionStorage.getItem("ap_parking_id") &&
+        sessionStorage.getItem("ap_vehicle_type")
       ) {
         ap_user_id = sessionStorage.getItem("ap_user_id");
         ap_token = sessionStorage.getItem("ap_token");
         ap_parking_id = sessionStorage.getItem("ap_parking_id");
+        ap_vehicle_type = sessionStorage.getItem("ap_vehicle_type");
 
         console.log(this.reservation_time);
         console.log(this.final_time);
-        console.log(this.vehicle_type);
         auth
-
           .reserva(
             this.reservation_time,
             this.final_time,
-            this.vehicle_type,
+            ap_vehicle_type,
             ap_user_id,
             ap_token,
             ap_parking_id
           )
 
-          .then((response) => {
+          .then(response => {
             if (response && response.status == 200) {
               this.makeToast(
                 "success",
                 "Reserva completa",
                 "Has completado la reserva exitosamente"
               );
-              setTimeout(
-                function () {
-                  this.$router.push({ path: "/home" });
-                }.bind(this),
-                1000
-              );
+              _events = new Array();
+              auth
+                .reservationsByUser(sessionStorage.getItem("ap_user_id"))
+                .then(response => {
+                  if (response && response.status == 200) {
+                    for (let eventResponse in response.data) {
+                      let event = {
+                        from: response.data[
+                          eventResponse
+                        ].reservation_time.replace("+00:00", "-05:00"),
+                        to: response.data[eventResponse].final_time.replace(
+                          "+00:00",
+                          "-05:00"
+                        )
+                      };
+                      _events.push(event);
+                    }
+                    console.log(_events);
+                  }
+                })
+                .catch(error => {
+                  console.log(error);
+                });
             }
           })
-          .catch((error) => {
+          .catch(error => {
             this.makeToast(
               "danger",
               "Reserva fallida",
@@ -208,12 +283,12 @@ export default {
       sessionStorage.removeItem("ap_parking_id");
       auth
         .invalidate_token(this.token)
-        .then((response) => {
+        .then(response => {
           if (response && response.status == 200) {
             console.log("token invalidado");
           }
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     },
@@ -223,21 +298,40 @@ export default {
       }
       this.$router.push("login");
     },
+    addAppointment(popup_info) {
+      let payload = {
+        data: {
+          title: "Reserva"
+        },
+        from: popup_info.start_time,
+        to: popup_info.end_time
+      };
+      this.$kalendar.addNewEvent(payload);
+      this.$kalendar.closePopups();
+      console.log(popup_info.start_time);
+      this.reservation_time = popup_info.start_time.replace("-05:00", "+00:00");
+      this.final_time = popup_info.end_time.replace("-05:00", "+00:00");
+      this.reserva();
+      this.clearFormData();
+    },
+    closePopups() {
+      this.$kalendar.closePopups();
+    },
     makeToast(variant = null, tittle, text) {
       this.$bvToast.toast(text, {
         toaster: "b-toaster-bottom-right",
         title: tittle,
         variant: variant,
         solid: true,
-        appendToast: true,
+        appendToast: true
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-<style >
+<style>
 .button-primary {
   background-color: #4a051c;
   border-color: #4a051c;
@@ -267,5 +361,29 @@ export default {
   max-width: 540px;
   padding: 40px;
   box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
+}
+.created-event {
+  align-self: center;
+  width: 100% !important;
+}
+.card-button {
+  background-color: #504e47;
+  border-color: #504e47;
+  color: white;
+}
+.backgroundImg {
+  background-image: url("../assets/Home_BG.png");
+}
+.kalendar-wrapper.gstyle .created-event,
+.kalendar-wrapper.gstyle .creating-event {
+  background-color: #ffc107 !important;
+  color: #504e47 !important;
+  border-color: #504e47;
+  border-style: dotted;
+  border-width: 2px;
+  font: 14px/1.5 "Poppins", sans-serif;
+}
+.popup-wrapper {
+  font: 14px/1.5 "Poppins", sans-serif;
 }
 </style>
